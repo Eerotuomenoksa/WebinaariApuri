@@ -1,7 +1,5 @@
 {
   "name": "SeniorSurf Verkkolähetyslaskuri",
   "description": "Tyylikäs skandinaavinen laskuri verkkolähetysten alkuun. Sisältää kuvanlatauksen, musiikkivalinnat ja muokattavan ulkoasun.",
-  "requestFramePermissions": [
-    "microphone"
-  ]
+  "requestFramePermissions": []
 }

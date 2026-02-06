@@ -3,43 +3,66 @@ import { MusicType } from '../types';
 
 class AudioService {
   private audioCtx: AudioContext | null = null;
-  private oscillator: OscillatorNode | null = null;
-  private gainNode: GainNode | null = null;
-  private filter: BiquadFilterNode | null = null;
-  private lfo: OscillatorNode | null = null;
+  private voices: { osc: OscillatorNode; gain: GainNode }[] = [];
+  private mainGain: GainNode | null = null;
   private currentType: string = MusicType.NONE;
-  private volume: number = 0.15;
+  private volume: number = 0.2;
   private isMuted: boolean = false;
   private audioEl: HTMLAudioElement | null = null;
 
   private init() {
     if (!this.audioCtx) {
       this.audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      this.gainNode = this.audioCtx.createGain();
-      this.gainNode.connect(this.audioCtx.destination);
-      this.gainNode.gain.setValueAtTime(this.isMuted ? 0 : this.volume, this.audioCtx.currentTime);
-    }
-  }
-
-  public setVolume(val: number) {
-    this.volume = val;
-    if (this.gainNode && this.audioCtx && !this.isMuted) {
-      this.gainNode.gain.setTargetAtTime(this.volume, this.audioCtx.currentTime, 0.1);
-    }
-    if (this.audioEl) {
-      this.audioEl.volume = this.isMuted ? 0 : this.volume;
+      this.mainGain = this.audioCtx.createGain();
+      this.mainGain.connect(this.audioCtx.destination);
+      this.mainGain.gain.setValueAtTime(this.isMuted ? 0 : this.volume, this.audioCtx.currentTime);
     }
   }
 
   public setMuted(muted: boolean) {
     this.isMuted = muted;
-    if (this.gainNode && this.audioCtx) {
+    if (this.mainGain && this.audioCtx) {
       const targetGain = this.isMuted ? 0 : this.volume;
-      this.gainNode.gain.setTargetAtTime(targetGain, this.audioCtx.currentTime, 0.2);
+      this.mainGain.gain.setTargetAtTime(targetGain, this.audioCtx.currentTime, 0.2);
     }
     if (this.audioEl) {
       this.audioEl.volume = this.isMuted ? 0 : this.volume;
     }
+  }
+
+  private createRichVoice(freq: number, type: OscillatorType = 'sine', pulseRate: number = 0.1) {
+    if (!this.audioCtx || !this.mainGain) return;
+
+    const osc = this.audioCtx.createOscillator();
+    const voiceGain = this.audioCtx.createGain();
+    const filter = this.audioCtx.createBiquadFilter();
+
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
+    
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1000, this.audioCtx.currentTime);
+
+    voiceGain.gain.setValueAtTime(0, this.audioCtx.currentTime);
+    
+    osc.connect(filter);
+    filter.connect(voiceGain);
+    voiceGain.connect(this.mainGain);
+
+    // Hitaasti "hengittävä" voimakkuus (LFO-simulaatio)
+    const now = this.audioCtx.currentTime;
+    voiceGain.gain.setTargetAtTime(0.2, now, 2);
+    
+    // Luodaan eloa ääneen pienellä detunella ja hitaalla voimakkuuden vaihtelulla
+    const lfo = () => {
+        if (!this.audioCtx || this.currentType === MusicType.NONE) return;
+        const time = this.audioCtx.currentTime;
+        voiceGain.gain.linearRampToValueAtTime(0.1 + Math.random() * 0.1, time + 4 + Math.random() * 2);
+        filter.frequency.linearRampToValueAtTime(400 + Math.random() * 600, time + 5);
+    };
+    
+    osc.start();
+    this.voices.push({ osc, gain: voiceGain });
   }
 
   public play(type: string, customUrl?: string | null) {
@@ -48,7 +71,7 @@ class AudioService {
     this.stop();
     this.currentType = type;
 
-    if (type === MusicType.NONE || !this.audioCtx || !this.gainNode) return;
+    if (type === MusicType.NONE || !this.audioCtx) return;
 
     if (this.audioCtx.state === 'suspended') {
       this.audioCtx.resume();
@@ -62,57 +85,22 @@ class AudioService {
       return;
     }
 
-    this.oscillator = this.audioCtx.createOscillator();
-    this.filter = this.audioCtx.createBiquadFilter();
-    this.lfo = this.audioCtx.createOscillator();
-    const lfoGain = this.audioCtx.createGain();
-    
     const now = this.audioCtx.currentTime;
 
-    // Default filter setup for warm, muffled "elevator" sound
-    this.filter.type = 'lowpass';
-    this.filter.frequency.setValueAtTime(800, now);
-
     switch (type) {
-      case MusicType.ELEVATOR_1: // Classical Elevator
-        this.oscillator.type = 'sine';
-        this.oscillator.frequency.setValueAtTime(349.23, now); // F4
-        this.filter.frequency.setValueAtTime(600, now);
+      case MusicType.AIRY:
+        // F Major 9th chord - ethereal and light
+        [174.61, 220.00, 261.63, 329.63, 349.23].forEach(f => this.createRichVoice(f, 'sine'));
         break;
-      case MusicType.ELEVATOR_2: // Bossa Nova vibe
-        this.oscillator.type = 'triangle';
-        this.oscillator.frequency.setValueAtTime(293.66, now); // D4
-        this.filter.frequency.setValueAtTime(400, now);
-        // Add a gentle pulse
-        lfoGain.gain.setValueAtTime(20, now);
-        this.lfo.frequency.setValueAtTime(2, now);
-        this.lfo.connect(lfoGain);
-        lfoGain.connect(this.oscillator.frequency);
-        this.lfo.start();
+      case MusicType.WARM:
+        // Csus2/9 chord - warm and inviting
+        [130.81, 196.00, 261.63, 293.66, 392.00].forEach(f => this.createRichVoice(f, 'triangle'));
         break;
-      case MusicType.ELEVATOR_3: // Soft Jazz
-        this.oscillator.type = 'sine';
-        this.oscillator.frequency.setValueAtTime(220, now); // A3
-        this.filter.frequency.setValueAtTime(300, now);
-        break;
-      case MusicType.ELEVATOR_4: // Lounge Chill
-        this.oscillator.type = 'sine';
-        this.oscillator.frequency.setValueAtTime(110, now); // A2
-        this.filter.frequency.setValueAtTime(150, now);
-        break;
-      case MusicType.ELEVATOR_5: // Modern Lobby
-        this.oscillator.type = 'triangle';
-        this.oscillator.frequency.setValueAtTime(440, now); // A4
-        this.filter.frequency.setValueAtTime(1000, now);
+      case MusicType.CALM:
+        // Deep Bb major drone - resonant and grounded
+        [116.54, 174.61, 233.08, 277.18].forEach(f => this.createRichVoice(f, 'sine'));
         break;
     }
-
-    this.oscillator.connect(this.filter);
-    this.filter.connect(this.gainNode);
-    this.oscillator.start();
-    
-    const targetGain = this.isMuted ? 0 : this.volume;
-    this.gainNode.gain.setTargetAtTime(targetGain, now, 2);
   }
 
   public stop() {
@@ -120,20 +108,16 @@ class AudioService {
       this.audioEl.pause();
       this.audioEl = null;
     }
-    if (this.lfo) {
-      try { this.lfo.stop(); } catch(e) {}
-      this.lfo = null;
-    }
-    if (this.oscillator && this.gainNode && this.audioCtx) {
+    
+    if (this.voices.length > 0 && this.mainGain && this.audioCtx) {
       const now = this.audioCtx.currentTime;
-      this.gainNode.gain.setTargetAtTime(0, now, 0.5);
-      const prevOsc = this.oscillator;
-      setTimeout(() => {
-        try {
-          prevOsc.stop();
-        } catch (e) {}
-      }, 600);
-      this.oscillator = null;
+      this.voices.forEach(v => {
+        v.gain.gain.setTargetAtTime(0, now, 0.5);
+        setTimeout(() => {
+          try { v.osc.stop(); } catch (e) {}
+        }, 1000);
+      });
+      this.voices = [];
     }
     this.currentType = MusicType.NONE;
   }

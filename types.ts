@@ -14,14 +14,13 @@ export interface AppSettings {
   titlePosition: 'above' | 'below' | 'overlay';
   isBreakMode: boolean;
   breakText: string;
+  countdownStyle: 'digital' | 'minimal' | 'circles';
 }
 
 export enum MusicType {
   NONE = 'Ei musiikkia',
-  ELEVATOR_1 = 'Klassinen hissimusiikki',
-  ELEVATOR_2 = 'Kevyt Bossa Nova',
-  ELEVATOR_3 = 'Pehmyt Jazz-tunnelma',
-  ELEVATOR_4 = 'Lounge-odotusmusiikki',
-  ELEVATOR_5 = 'Moderni aulatila',
-  CUSTOM = 'Oma musiikkitiedosto'
+  CUSTOM = 'Oma musiikkitiedosto',
+  AIRY = 'Ilmava ja kevyt',
+  WARM = 'Lämmin ja pehmeä',
+  CALM = 'Tyyni ja syvä'
 }
