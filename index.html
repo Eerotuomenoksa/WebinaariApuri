@@ -14,6 +14,8 @@
         .settings-scroll::-webkit-scrollbar { width: 6px; }
         .settings-scroll::-webkit-scrollbar-track { background: transparent; }
         .settings-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
     </style>
 </head>
 <body>
@@ -30,13 +32,12 @@
     </script>
 
     <script type="module">
-        import React, { useState, useEffect, useCallback, useMemo } from 'react';
+        import React, { useState, useEffect } from 'react';
         import ReactDOM from 'react-dom';
         import htm from 'htm';
 
         const html = htm.bind(React.createElement);
 
-        // --- Types & Constants ---
         const MusicType = {
             NONE: 'Ei musiikkia',
             CUSTOM: 'Oma musiikkitiedosto',
@@ -45,7 +46,6 @@
             CALM: 'Tyyni ja syvä'
         };
 
-        // --- Audio Service ---
         class AudioService {
             constructor() {
                 this.audioCtx = null;
@@ -94,7 +94,7 @@
                 voiceGain.connect(this.mainGain);
 
                 const now = this.audioCtx.currentTime;
-                voiceGain.gain.setTargetAtTime(0.2, now, 2);
+                voiceGain.gain.setTargetAtTime(0.1, now, 2);
                 osc.start();
                 this.voices.push({ osc, gain: voiceGain });
             }
@@ -139,7 +139,6 @@
 
         const audioService = new AudioService();
 
-        // --- Settings Modal Component ---
         const SettingsModal = ({ settings, setSettings, onClose }) => {
             const handleFileChange = (e, key) => {
                 const file = e.target.files?.[0];
@@ -153,7 +152,7 @@
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
                         <div className="p-6 border-b flex justify-between items-center">
-                            <h2 className="text-xl font-semibold text-slate-800">Laskurin asetukset</h2>
+                            <h2 className="text-xl font-semibold text-slate-800">Asetukset</h2>
                             <button onClick=${onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
                                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -164,44 +163,74 @@
                         <div className="p-6 overflow-y-auto settings-scroll flex-1 space-y-6">
                             <div className="p-4 bg-purple-50 rounded-xl border border-purple-100 space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <label className="text-sm font-bold text-purple-900 uppercase tracking-wider">Tila</label>
+                                    <label className="text-sm font-bold text-purple-900 uppercase">Tapahtuman tila</label>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-xs font-bold ${!settings.isBreakMode ? 'text-purple-600' : 'text-slate-400'}">Laskuri</span>
                                         <button 
                                             onClick=${() => setSettings({...settings, isBreakMode: !settings.isBreakMode})}
                                             className="w-12 h-6 rounded-full relative transition-colors duration-300 ${settings.isBreakMode ? 'bg-purple-600' : 'bg-slate-300'}"
                                         >
                                             <div className="absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${settings.isBreakMode ? 'left-7' : 'left-1'}" />
                                         </button>
-                                        <span className="text-xs font-bold ${settings.isBreakMode ? 'text-purple-600' : 'text-slate-400'}">Tauko</span>
+                                        <span className="text-xs font-bold ${settings.isBreakMode ? 'text-purple-600' : 'text-slate-400'}">Tauko päällä</span>
                                     </div>
                                 </div>
                                 ${settings.isBreakMode && html`
-                                    <input type="text" className="w-full px-3 py-1.5 bg-white border border-purple-200 rounded-lg outline-none text-sm" 
+                                    <input type="text" placeholder="Taukoteksti..." className="w-full px-3 py-1.5 bg-white border border-purple-200 rounded-lg outline-none text-sm" 
                                         value=${settings.breakText} 
                                         onChange=${e => setSettings({...settings, breakText: e.target.value})} />
                                 `}
                             </div>
 
                             <div className="space-y-4">
-                                <label className="text-sm font-medium text-slate-600">Otsikko</label>
-                                <input className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none" 
-                                    value=${settings.eventTitle} 
-                                    onChange=${e => setSettings({...settings, eventTitle: e.target.value})} />
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-slate-600">Otsikko</label>
+                                    <input className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none" 
+                                        value=${settings.eventTitle} 
+                                        onChange=${e => setSettings({...settings, eventTitle: e.target.value})} />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">Otsikon paikka</label>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        ${['above', 'overlay', 'below'].map(pos => html`
+                                            <button key=${pos} onClick=${() => setSettings({...settings, titlePosition: pos})}
+                                                className="px-3 py-2 text-xs font-bold rounded-lg border transition-all ${settings.titlePosition === pos ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-600 border-slate-200'}">
+                                                ${pos === 'above' ? 'Yllä' : pos === 'below' ? 'Alla' : 'Kuvassa'}
+                                            </button>
+                                        `)}
+                                    </div>
+                                </div>
+                            </div>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="text-xs text-slate-500">Alkamisaika</label>
-                                        <input type="datetime-local" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none" 
-                                            value=${settings.startTime} 
-                                            onChange=${e => setSettings({...settings, startTime: e.target.value})} />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs text-slate-500">Väri</label>
-                                        <input type="color" className="w-full h-10 p-1 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer" 
-                                            value=${settings.backgroundColor} 
-                                            onChange=${e => setSettings({...settings, backgroundColor: e.target.value})} />
-                                    </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">Alkamisaika</label>
+                                    <input type="datetime-local" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none text-sm" 
+                                        value=${settings.startTime} 
+                                        onChange=${e => setSettings({...settings, startTime: e.target.value})} />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">Taustaväri</label>
+                                    <input type="color" className="w-full h-10 p-1 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer" 
+                                        value=${settings.backgroundColor} 
+                                        onChange=${e => setSettings({...settings, backgroundColor: e.target.value})} />
+                                </div>
+                            </div>
+
+                            <div className="p-4 bg-blue-50 rounded-xl border border-blue-100 space-y-4">
+                                <label className="text-sm font-bold text-blue-900 uppercase">Viestit osallistujille</label>
+                                <div className="space-y-3">
+                                    <label className="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" checked=${settings.showCameraWarning} onChange=${e => setSettings({...settings, showCameraWarning: e.target.checked})} className="w-4 h-4 text-blue-600 rounded" />
+                                        <span className="text-sm text-slate-700 font-medium">Kamerakielto (viesti infopalstalla)</span>
+                                    </label>
+                                    <label className="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" checked=${settings.showMicWarning} onChange=${e => setSettings({...settings, showMicWarning: e.target.checked})} className="w-4 h-4 text-blue-600 rounded" />
+                                        <span className="text-sm text-slate-700 font-medium">Mikrofonikielto (viesti infopalstalla)</span>
+                                    </label>
+                                    <label className="flex items-center gap-2 cursor-pointer pt-2 border-t border-blue-200">
+                                        <input type="checkbox" checked=${settings.showSeconds} onChange=${e => setSettings({...settings, showSeconds: e.target.checked})} className="w-4 h-4 text-blue-600 rounded" />
+                                        <span className="text-sm text-slate-700 font-medium">Näytä sekunnit kellossa</span>
+                                    </label>
                                 </div>
                             </div>
 
@@ -210,41 +239,39 @@
                                 <select className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg" 
                                     value=${settings.musicType} 
                                     onChange=${e => setSettings({...settings, musicType: e.target.value})}>
-                                    ${Object.values(MusicType).map(t => html`<option value=${t}>${t}</option>`)}
+                                    ${Object.values(MusicType).map(t => html`<option key=${t} value=${t}>${t}</option>`)}
                                 </select>
                                 ${settings.musicType === MusicType.CUSTOM && html`
-                                    <input type="file" accept="audio/*" onChange=${e => handleFileChange(e, 'customMusicUrl')} 
-                                        className="text-xs mt-2" />
+                                    <input type="file" accept="audio/*" onChange=${e => handleFileChange(e, 'customMusicUrl')} className="text-xs mt-2" />
                                 `}
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-600">Logon lataus</label>
-                                <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'logoUrl')} className="text-sm" />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-600">Tapahtumakuva</label>
-                                <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'imageUrl')} className="text-sm" />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-600">Lisätiedot</label>
-                                <textarea className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg h-20 resize-none" 
-                                    value=${settings.extraInfo} 
-                                    onChange=${e => setSettings({...settings, extraInfo: e.target.value})} />
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">Lataa Logo</label>
+                                    <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'logoUrl')} className="text-sm w-full" />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">Lataa Taustakuva</label>
+                                    <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'imageUrl')} className="text-sm w-full" />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">Lisätiedot / Tervehdys</label>
+                                    <textarea className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg h-20 resize-none text-sm" 
+                                        value=${settings.extraInfo} 
+                                        onChange=${e => setSettings({...settings, extraInfo: e.target.value})} />
+                                </div>
                             </div>
                         </div>
 
                         <div className="p-6 border-t bg-slate-50 flex justify-end">
-                            <button onClick=${onClose} className="px-6 py-2 bg-slate-800 text-white rounded-lg font-medium">Valmis</button>
+                            <button onClick=${onClose} className="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors">VALMIS</button>
                         </div>
                     </div>
                 </div>
             `;
         };
 
-        // --- Main App Component ---
         const App = () => {
             const [settings, setSettings] = useState({
                 eventTitle: 'Verkkolähetyksen Otsikko',
@@ -292,41 +319,50 @@
             }, [isMuted]);
 
             const Title = ({ isOverlay }) => html`
-                <h1 className="font-bold leading-none ${isOverlay ? "text-3xl md:text-5xl text-white drop-shadow-lg" : "text-3xl md:text-5xl text-slate-900 mb-4"}">
+                <h1 className="font-bold tracking-tight leading-tight ${isOverlay ? "text-3xl md:text-5xl text-white drop-shadow-2xl" : "text-3xl md:text-5xl text-slate-900"}">
                     ${settings.eventTitle}
                 </h1>
             `;
 
             return html`
-                <div className="h-screen w-screen flex flex-col relative" style=${{ backgroundColor: settings.backgroundColor }}>
+                <div className="h-screen w-screen flex flex-col relative transition-colors duration-700" style=${{ backgroundColor: settings.backgroundColor }}>
+                    
                     <div className="absolute top-8 left-8 z-20">
-                        ${settings.logoUrl ? html`<img src=${settings.logoUrl} className="h-20 md:h-28" />` : html`<div className="h-20 w-20 md:h-28 md:w-28 bg-white/50 rounded-2xl flex items-center justify-center text-slate-400 text-xs font-bold uppercase border">Logo</div>`}
+                        ${settings.logoUrl ? html`<img src=${settings.logoUrl} className="h-20 md:h-28 object-contain" />` : html`<div className="h-20 w-20 md:h-28 md:w-28 bg-white/50 rounded-2xl flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase border border-dashed">Logo</div>`}
                     </div>
 
-                    <main className="flex-1 flex flex-col items-center justify-center px-8 lg:px-20">
+                    <main className="flex-1 flex flex-col items-center justify-center px-8 lg:px-20 py-10">
                         <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                            <div className="lg:col-span-7 flex flex-col items-center lg:items-start space-y-4">
-                                <div className="w-full aspect-video bg-white rounded-[2rem] overflow-hidden shadow-2xl relative">
+                            
+                            <div className="lg:col-span-7 flex flex-col items-center lg:items-start space-y-6">
+                                ${settings.titlePosition === 'above' && html`<div className="mb-2"><${Title} isOverlay=${false} /></div>`}
+                                
+                                <div className="w-full aspect-video bg-white rounded-[2.5rem] overflow-hidden shadow-2xl relative border-8 border-white/50">
                                     <img src=${settings.imageUrl} className="w-full h-full object-cover" />
+                                    
                                     ${settings.titlePosition === 'overlay' && html`
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end pb-10 px-10">
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end pb-12 px-10">
                                             <${Title} isOverlay=${true} />
                                         </div>
                                     `}
+
                                     ${settings.isBreakMode && html`
-                                        <div className="absolute inset-0 bg-purple-900/40 backdrop-blur-sm flex items-center justify-center">
-                                            <div className="bg-white/90 px-8 py-4 rounded-full border-4 border-purple-600 transform -rotate-2">
-                                                <span className="text-2xl md:text-4xl font-black text-purple-600 uppercase">TAUKO</span>
+                                        <div className="absolute inset-0 bg-purple-900/60 backdrop-blur-md flex items-center justify-center z-20">
+                                            <div className="bg-white px-10 py-6 rounded-3xl shadow-2xl border-b-8 border-purple-700 transform -rotate-3">
+                                                <span className="text-3xl md:text-5xl font-black text-purple-700 uppercase tracking-tighter italic">Pieni tauko</span>
                                             </div>
                                         </div>
                                     `}
                                 </div>
+
+                                ${settings.titlePosition === 'below' && html`<div className="mt-2"><${Title} isOverlay=${false} /></div>`}
                             </div>
 
-                            <div className="lg:col-span-5 flex flex-col space-y-8">
-                                <div className="bg-white/30 backdrop-blur-xl rounded-[2.5rem] p-8 border border-white/40 shadow-xl space-y-4">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">${settings.isBreakMode ? 'Tauko' : 'Alkamisaika'}</p>
-                                    ${settings.isBreakMode ? html`<p className="text-2xl font-bold text-slate-800">${settings.breakText}</p>` : html`
+                            <div className="lg:col-span-5 flex flex-col space-y-6">
+                                <div className="bg-white/40 backdrop-blur-2xl rounded-[3rem] p-10 border border-white/60 shadow-2xl space-y-6">
+                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">${settings.isBreakMode ? 'Ilmoitus' : 'Tapahtuma alkaa'}</p>
+                                    
+                                    ${settings.isBreakMode ? html`<p className="text-3xl font-bold text-slate-800 leading-tight">${settings.breakText}</p>` : html`
                                         <div className="flex gap-4">
                                             ${[
                                                 {v: timeLeft.days, l: 'Pv', s: timeLeft.days > 0},
@@ -334,26 +370,49 @@
                                                 {v: timeLeft.minutes, l: 'Min', s: true},
                                                 {v: timeLeft.seconds, l: 'Sek', s: settings.showSeconds}
                                             ].filter(u => u.s).map(u => html`
-                                                <div className="flex flex-col items-center bg-white/60 rounded-2xl p-3 min-w-[70px]">
-                                                    <span className="text-2xl md:text-4xl font-bold text-slate-900">${String(u.v).padStart(2, '0')}</span>
-                                                    <span className="text-[10px] text-slate-400 font-bold uppercase">${u.l}</span>
+                                                <div key=${u.l} className="flex flex-col items-center bg-white/80 rounded-3xl p-4 min-w-[80px] border border-white">
+                                                    <span className="text-3xl md:text-5xl font-black text-slate-900 tabular-nums">${String(u.v).padStart(2, '0')}</span>
+                                                    <span className="text-[10px] text-slate-400 font-black uppercase mt-1 tracking-widest">${u.l}</span>
                                                 </div>
                                             `)}
                                         </div>
                                     `}
                                 </div>
-                                ${settings.extraInfo && !settings.isBreakMode && html`<div className="italic text-slate-600 text-lg">"${settings.extraInfo}"</div>`}
+
+                                <div className="flex flex-col gap-3">
+                                    ${settings.showCameraWarning && html`
+                                        <div className="bg-red-50/80 backdrop-blur-sm text-red-700 px-5 py-4 rounded-2xl flex items-center gap-4 text-xs md:text-sm font-bold shadow-sm border border-red-200 animate-in slide-in-from-right duration-500">
+                                            <span className="text-xl">📷</span>
+                                            <span>Toivomme että lähetyksen aikana kamerasi on suljettu</span>
+                                        </div>
+                                    `}
+                                    ${settings.showMicWarning && html`
+                                        <div className="bg-slate-800/90 backdrop-blur-sm text-white px-5 py-4 rounded-2xl flex items-center gap-4 text-xs md:text-sm font-bold shadow-sm border border-slate-700 animate-in slide-in-from-right duration-700">
+                                            <span className="text-xl">🎤</span>
+                                            <span>Toivomme että lähetyksen aikana mikrofonisi on suljettu</span>
+                                        </div>
+                                    `}
+                                </div>
+
+                                ${settings.extraInfo && !settings.isBreakMode && html`
+                                    <div className="bg-white/20 p-6 rounded-3xl border border-white/30 backdrop-blur-sm shadow-sm">
+                                        <div className="italic text-slate-700 text-xl font-medium leading-relaxed">"${settings.extraInfo}"</div>
+                                    </div>
+                                `}
                             </div>
                         </div>
                     </main>
 
-                    <footer className="h-20 bg-white/30 backdrop-blur-xl flex items-center justify-center relative border-t border-white/40">
-                        <p className="text-slate-600 text-xs font-semibold">Palvelun tarjoaa Vanhustyön keskusliiton SeniorSurf-toiminta.</p>
-                        <div className="absolute right-10 flex gap-4">
-                            <button onClick=${() => setIsMuted(!isMuted)} className="p-3 bg-white rounded-full shadow border">
+                    <footer className="h-24 bg-white/20 backdrop-blur-xl flex items-center justify-center relative border-t border-white/40">
+                        <div className="text-center">
+                            <p className="text-slate-500 text-xs font-bold uppercase tracking-widest opacity-70">SeniorSurf.fi</p>
+                            <p className="text-slate-400 text-[10px] mt-1 italic">Vanhustyön keskusliitto</p>
+                        </div>
+                        <div className="absolute right-12 flex gap-4">
+                            <button onClick=${() => setIsMuted(!isMuted)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform">
                                 ${isMuted ? '🔇' : '🔊'}
                             </button>
-                            <button onClick=${() => setIsSettingsOpen(true)} className="p-3 bg-white rounded-full shadow border">
+                            <button onClick=${() => setIsSettingsOpen(true)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform">
                                 ⚙️
                             </button>
                         </div>
