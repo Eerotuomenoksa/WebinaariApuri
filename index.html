@@ -16,6 +16,16 @@
         .settings-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
         .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
+        
+        .strike-line {
+            position: absolute;
+            width: 120%;
+            height: 3px;
+            background-color: #ef4444;
+            transform: rotate(-45deg);
+            border-radius: 2px;
+            box-shadow: 0 0 2px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
@@ -32,18 +42,132 @@
     </script>
 
     <script type="module">
-        import React, { useState, useEffect } from 'react';
+        import React, { useState, useEffect, useMemo } from 'react';
         import ReactDOM from 'react-dom';
         import htm from 'htm';
 
         const html = htm.bind(React.createElement);
 
+        const translations = {
+            fi: {
+                settings: 'Asetukset',
+                language: 'Kieli',
+                eventTitle: 'Otsikko',
+                titlePos: 'Otsikon paikka',
+                startTime: 'Alkamisaika',
+                bgColor: 'Taustaväri',
+                extraInfoLabel: 'Lisätiedot / Tervehdys',
+                music: 'Taustamusiikki',
+                logo: 'Lataa Logo',
+                bgImage: 'Lataa Taustakuva',
+                breakMode: 'Tapahtuman tila',
+                breakOn: 'Tauko päällä',
+                camWarning: 'Kamerakielto (viesti infopalstalla)',
+                micWarning: 'Mikrofonikielto (viesti infopalstalla)',
+                showSeconds: 'Näytä sekunnit kellossa',
+                ready: 'VALMIS',
+                startsIn: 'Tapahtuma alkaa',
+                notice: 'Ilmoitus',
+                days: 'Pv',
+                hours: 'H',
+                minutes: 'Min',
+                seconds: 'Sek',
+                camMessage: 'Toivomme että lähetyksen aikana kamerasi on suljettu',
+                micMessage: 'Toivomme että lähetyksen aikana mikrofonisi on suljettu',
+                footerTop: 'SeniorSurf Seniorien digiosallisuuden edistäjä',
+                footerBottom: 'Palvelun tarjoaa Vanhustyön keskusliitto',
+                titleAbove: 'Yllä',
+                titleBelow: 'Alla',
+                titleOverlay: 'Kuvassa',
+                breakTitle: 'Pieni tauko',
+                musicNone: 'Ei musiikkia',
+                musicCustom: 'Oma musiikkitiedosto',
+                musicAiry: 'Ilmava ja kevyt',
+                musicWarm: 'Lämmin ja pehmeä',
+                musicCalm: 'Tyyni ja syvä'
+            },
+            sv: {
+                settings: 'Inställningar',
+                language: 'Språk',
+                eventTitle: 'Rubrik',
+                titlePos: 'Rubrikens placering',
+                startTime: 'Starttid',
+                bgColor: 'Bakgrundsfärg',
+                extraInfoLabel: 'Tilläggsinformation / Hälsning',
+                music: 'Bakgrundsmusik',
+                logo: 'Ladda upp logotyp',
+                bgImage: 'Ladda upp bakgrundsbild',
+                breakMode: 'Händelsestatus',
+                breakOn: 'Paus på',
+                camWarning: 'Kameraförbud (meddelande på infopanelen)',
+                micWarning: 'Mikrofonförbud (meddelande på infopanelen)',
+                showSeconds: 'Visa sekunder',
+                ready: 'KLART',
+                startsIn: 'Händelsen börjar om',
+                notice: 'Meddelande',
+                days: 'Dag',
+                hours: 'Tim',
+                minutes: 'Min',
+                seconds: 'Sek',
+                camMessage: 'Vi önskar att din kamera är avstängd under sändningen',
+                micMessage: 'Vi önskar att din mikrofon är avstängd under sändningen',
+                footerTop: 'SeniorSurf Främjare av seniorers digitala delaktighet',
+                footerBottom: 'Tjänsten tillhandahålls av Centralförbundet för de gamlas väl',
+                titleAbove: 'Ovanför',
+                titleBelow: 'Under',
+                titleOverlay: 'På bilden',
+                breakTitle: 'Kort paus',
+                musicNone: 'Ingen musik',
+                musicCustom: 'Egen musikfil',
+                musicAiry: 'Luftig och lätt',
+                musicWarm: 'Varm och mjuk',
+                musicCalm: 'Lugn och djup'
+            },
+            en: {
+                settings: 'Settings',
+                language: 'Language',
+                eventTitle: 'Title',
+                titlePos: 'Title position',
+                startTime: 'Start Time',
+                bgColor: 'Background Color',
+                extraInfoLabel: 'Additional Info / Greeting',
+                music: 'Background Music',
+                logo: 'Upload Logo',
+                bgImage: 'Upload Background Image',
+                breakMode: 'Event Status',
+                breakOn: 'Break Active',
+                camWarning: 'Camera restriction (notice on info panel)',
+                micWarning: 'Microphone restriction (notice on info panel)',
+                showSeconds: 'Show seconds',
+                ready: 'DONE',
+                startsIn: 'Event starts in',
+                notice: 'Notice',
+                days: 'Days',
+                hours: 'Hrs',
+                minutes: 'Min',
+                seconds: 'Sec',
+                camMessage: 'We kindly ask you to keep your camera turned off during the broadcast',
+                micMessage: 'We kindly ask you to keep your microphone muted during the broadcast',
+                footerTop: 'SeniorSurf Promoting digital inclusion for seniors',
+                footerBottom: 'Service provided by the Central Union for the Welfare of the Aged',
+                titleAbove: 'Above',
+                titleBelow: 'Below',
+                titleOverlay: 'In picture',
+                breakTitle: 'Short Break',
+                musicNone: 'No music',
+                musicCustom: 'Custom music file',
+                musicAiry: 'Airy and light',
+                musicWarm: 'Warm and soft',
+                musicCalm: 'Calm and deep'
+            }
+        };
+
         const MusicType = {
-            NONE: 'Ei musiikkia',
-            CUSTOM: 'Oma musiikkitiedosto',
-            AIRY: 'Ilmava ja kevyt',
-            WARM: 'Lämmin ja pehmeä',
-            CALM: 'Tyyni ja syvä'
+            NONE: 'NONE',
+            CUSTOM: 'CUSTOM',
+            AIRY: 'AIRY',
+            WARM: 'WARM',
+            CALM: 'CALM'
         };
 
         class AudioService {
@@ -140,6 +264,8 @@
         const audioService = new AudioService();
 
         const SettingsModal = ({ settings, setSettings, onClose }) => {
+            const t = translations[settings.language];
+
             const handleFileChange = (e, key) => {
                 const file = e.target.files?.[0];
                 if (file) {
@@ -152,7 +278,7 @@
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
                         <div className="p-6 border-b flex justify-between items-center">
-                            <h2 className="text-xl font-semibold text-slate-800">Asetukset</h2>
+                            <h2 className="text-xl font-semibold text-slate-800">${t.settings}</h2>
                             <button onClick=${onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
                                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -161,9 +287,21 @@
                         </div>
 
                         <div className="p-6 overflow-y-auto settings-scroll flex-1 space-y-6">
+                            <div className="space-y-2">
+                                <label className="text-xs font-semibold text-slate-500 uppercase">${t.language}</label>
+                                <div className="grid grid-cols-3 gap-2">
+                                    ${['fi', 'sv', 'en'].map(lang => html`
+                                        <button key=${lang} onClick=${() => setSettings({...settings, language: lang})}
+                                            className="px-3 py-2 text-xs font-bold rounded-lg border transition-all ${settings.language === lang ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200'}">
+                                            ${lang.toUpperCase()}
+                                        </button>
+                                    `)}
+                                </div>
+                            </div>
+
                             <div className="p-4 bg-purple-50 rounded-xl border border-purple-100 space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <label className="text-sm font-bold text-purple-900 uppercase">Tapahtuman tila</label>
+                                    <label className="text-sm font-bold text-purple-900 uppercase">${t.breakMode}</label>
                                     <div className="flex items-center gap-2">
                                         <button 
                                             onClick=${() => setSettings({...settings, isBreakMode: !settings.isBreakMode})}
@@ -171,7 +309,7 @@
                                         >
                                             <div className="absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${settings.isBreakMode ? 'left-7' : 'left-1'}" />
                                         </button>
-                                        <span className="text-xs font-bold ${settings.isBreakMode ? 'text-purple-600' : 'text-slate-400'}">Tauko päällä</span>
+                                        <span className="text-xs font-bold ${settings.isBreakMode ? 'text-purple-600' : 'text-slate-400'}">${t.breakOn}</span>
                                     </div>
                                 </div>
                                 ${settings.isBreakMode && html`
@@ -183,18 +321,18 @@
 
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-600">Otsikko</label>
+                                    <label className="text-sm font-medium text-slate-600">${t.eventTitle}</label>
                                     <input className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none" 
                                         value=${settings.eventTitle} 
                                         onChange=${e => setSettings({...settings, eventTitle: e.target.value})} />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">Otsikon paikka</label>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.titlePos}</label>
                                     <div className="grid grid-cols-3 gap-2">
                                         ${['above', 'overlay', 'below'].map(pos => html`
                                             <button key=${pos} onClick=${() => setSettings({...settings, titlePosition: pos})}
                                                 className="px-3 py-2 text-xs font-bold rounded-lg border transition-all ${settings.titlePosition === pos ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-600 border-slate-200'}">
-                                                ${pos === 'above' ? 'Yllä' : pos === 'below' ? 'Alla' : 'Kuvassa'}
+                                                ${pos === 'above' ? t.titleAbove : pos === 'below' ? t.titleBelow : t.titleOverlay}
                                             </button>
                                         `)}
                                     </div>
@@ -203,13 +341,13 @@
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">Alkamisaika</label>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.startTime}</label>
                                     <input type="datetime-local" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none text-sm" 
                                         value=${settings.startTime} 
                                         onChange=${e => setSettings({...settings, startTime: e.target.value})} />
                                 </div>
                                 <div>
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">Taustaväri</label>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.bgColor}</label>
                                     <input type="color" className="w-full h-10 p-1 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer" 
                                         value=${settings.backgroundColor} 
                                         onChange=${e => setSettings({...settings, backgroundColor: e.target.value})} />
@@ -217,29 +355,32 @@
                             </div>
 
                             <div className="p-4 bg-blue-50 rounded-xl border border-blue-100 space-y-4">
-                                <label className="text-sm font-bold text-blue-900 uppercase">Viestit osallistujille</label>
                                 <div className="space-y-3">
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" checked=${settings.showCameraWarning} onChange=${e => setSettings({...settings, showCameraWarning: e.target.checked})} className="w-4 h-4 text-blue-600 rounded" />
-                                        <span className="text-sm text-slate-700 font-medium">Kamerakielto (viesti infopalstalla)</span>
+                                        <span className="text-sm text-slate-700 font-medium">${t.camWarning}</span>
                                     </label>
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" checked=${settings.showMicWarning} onChange=${e => setSettings({...settings, showMicWarning: e.target.checked})} className="w-4 h-4 text-blue-600 rounded" />
-                                        <span className="text-sm text-slate-700 font-medium">Mikrofonikielto (viesti infopalstalla)</span>
+                                        <span className="text-sm text-slate-700 font-medium">${t.micWarning}</span>
                                     </label>
                                     <label className="flex items-center gap-2 cursor-pointer pt-2 border-t border-blue-200">
                                         <input type="checkbox" checked=${settings.showSeconds} onChange=${e => setSettings({...settings, showSeconds: e.target.checked})} className="w-4 h-4 text-blue-600 rounded" />
-                                        <span className="text-sm text-slate-700 font-medium">Näytä sekunnit kellossa</span>
+                                        <span className="text-sm text-slate-700 font-medium">${t.showSeconds}</span>
                                     </label>
                                 </div>
                             </div>
 
                             <div className="space-y-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Taustamusiikki</label>
+                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">${t.music}</label>
                                 <select className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg" 
                                     value=${settings.musicType} 
                                     onChange=${e => setSettings({...settings, musicType: e.target.value})}>
-                                    ${Object.values(MusicType).map(t => html`<option key=${t} value=${t}>${t}</option>`)}
+                                    <option value=${MusicType.NONE}>${t.musicNone}</option>
+                                    <option value=${MusicType.CUSTOM}>${t.musicCustom}</option>
+                                    <option value=${MusicType.AIRY}>${t.musicAiry}</option>
+                                    <option value=${MusicType.WARM}>${t.musicWarm}</option>
+                                    <option value=${MusicType.CALM}>${t.musicCalm}</option>
                                 </select>
                                 ${settings.musicType === MusicType.CUSTOM && html`
                                     <input type="file" accept="audio/*" onChange=${e => handleFileChange(e, 'customMusicUrl')} className="text-xs mt-2" />
@@ -248,15 +389,15 @@
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">Lataa Logo</label>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.logo}</label>
                                     <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'logoUrl')} className="text-sm w-full" />
                                 </div>
                                 <div>
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">Lataa Taustakuva</label>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.bgImage}</label>
                                     <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'imageUrl')} className="text-sm w-full" />
                                 </div>
                                 <div>
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">Lisätiedot / Tervehdys</label>
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.extraInfoLabel}</label>
                                     <textarea className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg h-20 resize-none text-sm" 
                                         value=${settings.extraInfo} 
                                         onChange=${e => setSettings({...settings, extraInfo: e.target.value})} />
@@ -265,7 +406,7 @@
                         </div>
 
                         <div className="p-6 border-t bg-slate-50 flex justify-end">
-                            <button onClick=${onClose} className="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors">VALMIS</button>
+                            <button onClick=${onClose} className="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors">${t.ready}</button>
                         </div>
                     </div>
                 </div>
@@ -274,6 +415,7 @@
 
         const App = () => {
             const [settings, setSettings] = useState({
+                language: 'fi',
                 eventTitle: 'Verkkolähetyksen Otsikko',
                 startTime: new Date(Date.now() + 3600000).toISOString().slice(0, 16),
                 backgroundColor: '#f1f5f9',
@@ -290,6 +432,8 @@
                 breakText: 'Olemme pienellä tauolla. Palaamme pian!',
                 countdownStyle: 'digital',
             });
+
+            const t = translations[settings.language];
 
             const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
             const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -349,7 +493,7 @@
                                     ${settings.isBreakMode && html`
                                         <div className="absolute inset-0 bg-purple-900/60 backdrop-blur-md flex items-center justify-center z-20">
                                             <div className="bg-white px-10 py-6 rounded-3xl shadow-2xl border-b-8 border-purple-700 transform -rotate-3">
-                                                <span className="text-3xl md:text-5xl font-black text-purple-700 uppercase tracking-tighter italic">Pieni tauko</span>
+                                                <span className="text-3xl md:text-5xl font-black text-purple-700 uppercase tracking-tighter italic">${t.breakTitle}</span>
                                             </div>
                                         </div>
                                     `}
@@ -360,15 +504,15 @@
 
                             <div className="lg:col-span-5 flex flex-col space-y-6">
                                 <div className="bg-white/40 backdrop-blur-2xl rounded-[3rem] p-10 border border-white/60 shadow-2xl space-y-6">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">${settings.isBreakMode ? 'Ilmoitus' : 'Tapahtuma alkaa'}</p>
+                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">${settings.isBreakMode ? t.notice : t.startsIn}</p>
                                     
                                     ${settings.isBreakMode ? html`<p className="text-3xl font-bold text-slate-800 leading-tight">${settings.breakText}</p>` : html`
                                         <div className="flex gap-4">
                                             ${[
-                                                {v: timeLeft.days, l: 'Pv', s: timeLeft.days > 0},
-                                                {v: timeLeft.hours, l: 'H', s: true},
-                                                {v: timeLeft.minutes, l: 'Min', s: true},
-                                                {v: timeLeft.seconds, l: 'Sek', s: settings.showSeconds}
+                                                {v: timeLeft.days, l: t.days, s: timeLeft.days > 0},
+                                                {v: timeLeft.hours, l: t.hours, s: true},
+                                                {v: timeLeft.minutes, l: t.minutes, s: true},
+                                                {v: timeLeft.seconds, l: t.seconds, s: settings.showSeconds}
                                             ].filter(u => u.s).map(u => html`
                                                 <div key=${u.l} className="flex flex-col items-center bg-white/80 rounded-3xl p-4 min-w-[80px] border border-white">
                                                     <span className="text-3xl md:text-5xl font-black text-slate-900 tabular-nums">${String(u.v).padStart(2, '0')}</span>
@@ -382,14 +526,20 @@
                                 <div className="flex flex-col gap-3">
                                     ${settings.showCameraWarning && html`
                                         <div className="bg-red-50/80 backdrop-blur-sm text-red-700 px-5 py-4 rounded-2xl flex items-center gap-4 text-xs md:text-sm font-bold shadow-sm border border-red-200 animate-in slide-in-from-right duration-500">
-                                            <span className="text-xl">📷</span>
-                                            <span>Toivomme että lähetyksen aikana kamerasi on suljettu</span>
+                                            <div className="relative inline-flex items-center justify-center w-8 h-8">
+                                                <span className="text-xl">📷</span>
+                                                <div className="strike-line"></div>
+                                            </div>
+                                            <span>${t.camMessage}</span>
                                         </div>
                                     `}
                                     ${settings.showMicWarning && html`
                                         <div className="bg-slate-800/90 backdrop-blur-sm text-white px-5 py-4 rounded-2xl flex items-center gap-4 text-xs md:text-sm font-bold shadow-sm border border-slate-700 animate-in slide-in-from-right duration-700">
-                                            <span className="text-xl">🎤</span>
-                                            <span>Toivomme että lähetyksen aikana mikrofonisi on suljettu</span>
+                                            <div className="relative inline-flex items-center justify-center w-8 h-8">
+                                                <span className="text-xl">🎤</span>
+                                                <div className="strike-line"></div>
+                                            </div>
+                                            <span>${t.micMessage}</span>
                                         </div>
                                     `}
                                 </div>
@@ -403,10 +553,10 @@
                         </div>
                     </main>
 
-                    <footer className="h-24 bg-white/20 backdrop-blur-xl flex items-center justify-center relative border-t border-white/40">
-                        <div className="text-center">
-                            <p className="text-slate-500 text-xs font-bold uppercase tracking-widest opacity-70">SeniorSurf.fi</p>
-                            <p className="text-slate-400 text-[10px] mt-1 italic">Vanhustyön keskusliitto</p>
+                    <footer className="h-24 bg-white/20 backdrop-blur-xl flex flex-col items-center justify-center relative border-t border-white/40 px-4">
+                        <div className="text-center space-y-1">
+                            <p className="text-slate-600 text-sm font-semibold tracking-wide">${t.footerTop}</p>
+                            <p className="text-slate-400 text-[11px] font-medium italic">${t.footerBottom}</p>
                         </div>
                         <div className="absolute right-12 flex gap-4">
                             <button onClick=${() => setIsMuted(!isMuted)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform">
