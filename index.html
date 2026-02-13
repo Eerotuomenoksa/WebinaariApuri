@@ -14,19 +14,7 @@
         .settings-scroll::-webkit-scrollbar { width: 6px; }
         .settings-scroll::-webkit-scrollbar-track { background: transparent; }
         .settings-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
         
-        .strike-line {
-            position: absolute;
-            width: 120%;
-            height: 3px;
-            background-color: #ef4444;
-            transform: rotate(-45deg);
-            border-radius: 2px;
-            box-shadow: 0 0 2px rgba(0,0,0,0.3);
-        }
-
         input[type="time"]::-webkit-calendar-picker-indicator {
             cursor: pointer;
             filter: invert(0.5);
@@ -46,6 +34,16 @@
         @keyframes music-bar-anim {
             0%, 100% { height: 4px; }
             50% { height: 12px; }
+        }
+
+        .strike-line {
+            position: absolute;
+            width: 120%;
+            height: 3px;
+            background-color: #ef4444;
+            transform: rotate(-45deg);
+            border-radius: 2px;
+            box-shadow: 0 0 2px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -74,18 +72,13 @@
                 settings: 'Asetukset',
                 language: 'Kieli',
                 eventTitle: 'Otsikko',
-                titlePos: 'Otsikon paikka',
                 startTime: 'Alkamisaika',
-                bgColor: 'Taustaväri',
                 extraInfoLabel: 'Lisätiedot / Tervehdys',
                 music: 'Taustamusiikki',
-                musicSunoNotice: 'Lataa tähän aiemmin generoidut kappaleet:',
                 logo: 'Lataa Logo',
                 bgImage: 'Lataa Taustakuva',
                 breakMode: 'Tapahtuman tila',
                 breakOn: 'Tauko päällä',
-                camWarning: 'Kamerakielto (viesti infopalstalla)',
-                micWarning: 'Mikrofonikielto (viesti infopalstalla)',
                 showSeconds: 'Näytä sekunnit kellossa',
                 ready: 'VALMIS',
                 startsIn: 'Tapahtuma alkaa',
@@ -94,41 +87,34 @@
                 hours: 'H',
                 minutes: 'Min',
                 seconds: 'Sek',
-                camMessage: 'Toivomme että lähetyksen aikana kamerasi on suljettu',
-                micMessage: 'Toivomme että lähetyksen aikana mikrofonisi on suljettu',
                 footerTop: 'SeniorSurf seniorien digiosallisuuden edistäjä',
                 footerBottom: 'Palvelun tarjoaa Vanhustyön keskusliitto ry',
-                titleAbove: 'Yllä',
-                titleBelow: 'Alla',
-                titleOverlay: 'Kuvassa',
                 breakTitle: 'Pieni tauko',
                 musicNone: 'Ei musiikkia',
-                musicCustom: 'Oma musiikkitiedosto',
-                musicAiry: 'Ilmava ja kevyt (synteesi)',
-                musicWarm: 'Lämmin ja pehmeä (synteesi)',
-                musicCalm: 'Tyyni ja syvä (synteesi)',
-                sunoInspiring: 'Suno 1: Inspiroiva digi',
-                sunoSummer: 'Suno 2: Kesäpäivä',
-                sunoJourney: 'Suno 3: Digimatka',
-                sunoPeace: 'Suno 4: Rauha',
-                sunoFuture: 'Suno 5: Tulevaisuus'
+                musicCustom: 'Lataa oma tiedosto...',
+                musicHiljainen: 'Hiljainen odotus',
+                musicHeraa: 'Herää Nyt',
+                musicRauhallinen: 'Rauhallinen odotus',
+                breakTextLabel: 'Taukoteksti',
+                camWarn: 'Pidäthän kameran suljettuna esityksen ajan.',
+                micWarn: 'Pidäthän mikrofonin suljettuna esityksen ajan.',
+                recWarn: 'Webinaari tallennetaan',
+                showWarnings: 'Näytä varoitukset',
+                showRecording: 'Tallennusilmoitus',
+                showCamera: 'Kamerapyyntö',
+                showMic: 'Mikrofonipyyntö'
             },
             sv: {
                 settings: 'Inställningar',
                 language: 'Språk',
                 eventTitle: 'Rubrik',
-                titlePos: 'Rubrikens placering',
                 startTime: 'Starttid',
-                bgColor: 'Bakgrundsfärg',
                 extraInfoLabel: 'Tilläggsinformation',
                 music: 'Bakgrundsmusik',
-                musicSunoNotice: 'Ladda upp genererade låtar:',
                 logo: 'Ladda upp logotyp',
                 bgImage: 'Ladda upp bakgrundsbild',
                 breakMode: 'Händelsestatus',
                 breakOn: 'Paus på',
-                camWarning: 'Kameraförbud',
-                micWarning: 'Mikrofonförbud',
                 showSeconds: 'Visa sekunder',
                 ready: 'KLART',
                 startsIn: 'Händelsen börjar om',
@@ -137,41 +123,34 @@
                 hours: 'Tim',
                 minutes: 'Min',
                 seconds: 'Sek',
-                camMessage: 'Vi önskar att din kamera är avstängd under sändningen',
-                micMessage: 'Vi önskar että din mikrofon är avstängd under sändningen',
                 footerTop: 'SeniorSurf främjar seniorers digitala delaktighet',
-                footerBottom: 'Tjänsten tillhandahålls av Centralförbundet för de gamlas väl ry',
-                titleAbove: 'Ovanför',
-                titleBelow: 'Under',
-                titleOverlay: 'På bilden',
+                footerBottom: 'Tjänsten tillhandhålls av Centralförbundet för de gamlas väl ry',
                 breakTitle: 'Kort paus',
                 musicNone: 'Ingen musik',
-                musicCustom: 'Egen musikfil',
-                musicAiry: 'Luftig och lätt',
-                musicWarm: 'Varm och mjuk',
-                musicCalm: 'Lugn och djup',
-                sunoInspiring: 'Suno 1',
-                sunoSummer: 'Suno 2',
-                sunoJourney: 'Suno 3',
-                sunoPeace: 'Suno 4',
-                sunoFuture: 'Suno 5'
+                musicCustom: 'Ladda upp egen fil...',
+                musicHiljainen: 'Stilla väntan',
+                musicHeraa: 'Vakna Nu',
+                musicRauhallinen: 'Lugn väntan',
+                breakTextLabel: 'Paustext',
+                camWarn: 'Vänligen håll kameran avstängd under presentationen.',
+                micWarn: 'Vänligen håll mikrofonen avstängd under presentationen.',
+                recWarn: 'Webbinariet spelas in',
+                showWarnings: 'Visa varningar',
+                showRecording: 'Inspelningsmeddelande',
+                showCamera: 'Kamerabegäran',
+                showMic: 'Mikrofonbegäran'
             },
             en: {
                 settings: 'Settings',
                 language: 'Language',
                 eventTitle: 'Title',
-                titlePos: 'Title position',
                 startTime: 'Start Time',
-                bgColor: 'Background Color',
                 extraInfoLabel: 'Additional Info',
                 music: 'Background Music',
-                musicSunoNotice: 'Upload generated tracks:',
                 logo: 'Upload Logo',
                 bgImage: 'Upload Background Image',
                 breakMode: 'Event Status',
                 breakOn: 'Break Active',
-                camWarning: 'Camera restriction',
-                micWarning: 'Microphone restriction',
                 showSeconds: 'Show seconds',
                 ready: 'DONE',
                 startsIn: 'Event starts in',
@@ -180,50 +159,41 @@
                 hours: 'Hrs',
                 minutes: 'Min',
                 seconds: 'Sec',
-                camMessage: 'We kindly ask you to keep your camera turned off during the broadcast',
-                micMessage: 'We kindly ask you to keep your microphone muted during the broadcast',
                 footerTop: 'SeniorSurf promoting digital inclusion for seniors',
                 footerBottom: 'Service provided by the Central Union for the Welfare of the Aged ry',
-                titleAbove: 'Above',
-                titleBelow: 'Below',
-                titleOverlay: 'In picture',
                 breakTitle: 'Short Break',
                 musicNone: 'No music',
-                musicCustom: 'Custom music file',
-                musicAiry: 'Airy and light',
-                musicWarm: 'Warm and soft',
-                musicCalm: 'Calm and deep',
-                sunoInspiring: 'Suno 1',
-                sunoSummer: 'Suno 2',
-                sunoJourney: 'Suno 3',
-                sunoPeace: 'Suno 4',
-                sunoFuture: 'Suno 5'
+                musicCustom: 'Upload custom file...',
+                musicHiljainen: 'Quiet Waiting',
+                musicHeraa: 'Wake Up Now',
+                musicRauhallinen: 'Calm Waiting',
+                breakTextLabel: 'Break Text',
+                camWarn: 'Please keep your camera off during the presentation.',
+                micWarn: 'Please keep your microphone muted during the presentation.',
+                recWarn: 'The webinar is being recorded',
+                showWarnings: 'Show warnings',
+                showRecording: 'Recording notification',
+                showCamera: 'Camera request',
+                showMic: 'Microphone request'
             }
         };
 
         const MusicType = {
             NONE: 'NONE',
             CUSTOM: 'CUSTOM',
-            AIRY: 'AIRY',
-            WARM: 'WARM',
-            CALM: 'CALM',
-            SUNO1: 'SUNO1',
-            SUNO2: 'SUNO2',
-            SUNO3: 'SUNO3',
-            SUNO4: 'SUNO4',
-            SUNO5: 'SUNO5'
+            HILJAINEN: 'musiikki/Hiljainen odotus.mp3',
+            HERAA: 'musiikki/Herää Nyt.mp3',
+            RAUHALLINEN: 'musiikki/Rauhallinen odotus.mp3'
         };
 
         class AudioService {
             constructor() {
                 this.audioCtx = null;
                 this.mainGain = null;
-                this.currentType = MusicType.NONE;
+                this.currentSource = MusicType.NONE;
                 this.volume = 0.25;
                 this.isMuted = false;
                 this.audioEl = null;
-                this.activeIntervals = [];
-                this.voices = new Set();
             }
 
             init() {
@@ -233,106 +203,47 @@
                     this.mainGain.connect(this.audioCtx.destination);
                     this.mainGain.gain.setValueAtTime(this.isMuted ? 0 : this.volume, this.audioCtx.currentTime);
                 }
-                if (this.audioCtx.state === 'suspended') {
-                    this.audioCtx.resume();
-                }
+                if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
             }
 
             setMuted(muted) {
                 this.isMuted = muted;
+                const target = this.isMuted ? 0 : this.volume;
                 if (this.mainGain && this.audioCtx) {
-                    const targetGain = this.isMuted ? 0 : this.volume;
-                    this.mainGain.gain.setTargetAtTime(targetGain, this.audioCtx.currentTime, 0.3);
+                    this.mainGain.gain.setTargetAtTime(target, this.audioCtx.currentTime, 0.3);
                 }
-                if (this.audioEl) {
-                    this.audioEl.volume = this.isMuted ? 0 : this.volume;
-                }
+                if (this.audioEl) this.audioEl.volume = target;
             }
 
-            spawnPad(freq, type = 'sine', panValue = 0, duration = 10) {
-                if (!this.audioCtx || !this.mainGain) return;
-                const osc = this.audioCtx.createOscillator();
-                const vGain = this.audioCtx.createGain();
-                const panner = this.audioCtx.createPanner();
-                const filter = this.audioCtx.createBiquadFilter();
-
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
-                
-                const lfo = this.audioCtx.createOscillator();
-                const lfoGain = this.audioCtx.createGain();
-                lfo.frequency.setValueAtTime(Math.random() * 0.5 + 0.1, this.audioCtx.currentTime);
-                lfoGain.gain.setValueAtTime(freq * 0.005, this.audioCtx.currentTime);
-                lfo.connect(lfoGain);
-                lfoGain.connect(osc.frequency);
-                lfo.start();
-
-                filter.type = 'lowpass';
-                filter.frequency.setValueAtTime(800 + Math.random() * 400, this.audioCtx.currentTime);
-                panner.setPosition(panValue, 0, 1 - Math.abs(panValue));
-                vGain.gain.setValueAtTime(0, this.audioCtx.currentTime);
-                
-                osc.connect(filter); filter.connect(panner); panner.connect(vGain); vGain.connect(this.mainGain);
-
-                const now = this.audioCtx.currentTime;
-                vGain.gain.linearRampToValueAtTime(0.08, now + duration * 0.4);
-                vGain.gain.linearRampToValueAtTime(0, now + duration);
-
-                osc.start(now); osc.stop(now + duration);
-                this.voices.add(osc);
-                osc.onended = () => { this.voices.delete(osc); lfo.stop(); osc.disconnect(); vGain.disconnect(); };
-            }
-
-            play(type, settings) {
+            play(type, customUrl) {
                 this.init();
-                if (this.currentType === type && type !== MusicType.CUSTOM) return;
-                this.stop();
-                this.currentType = type;
-
-                if (type === MusicType.NONE) return;
-
-                // Haetaan tiedostopohjaiset äänet
-                let fileUrl = null;
-                if (type === MusicType.CUSTOM) fileUrl = settings.customMusicUrl;
-                else if (type === MusicType.SUNO1) fileUrl = settings.suno1Url;
-                else if (type === MusicType.SUNO2) fileUrl = settings.suno2Url;
-                else if (type === MusicType.SUNO3) fileUrl = settings.suno3Url;
-                else if (type === MusicType.SUNO4) fileUrl = settings.suno4Url;
-                else if (type === MusicType.SUNO5) fileUrl = settings.suno5Url;
-
-                if (fileUrl) {
-                    this.audioEl = new Audio(fileUrl);
-                    this.audioEl.loop = true;
-                    this.audioEl.volume = this.isMuted ? 0 : this.volume;
-                    this.audioEl.play().catch(e => console.error("Toistovirhe:", e));
+                const rawSource = type === MusicType.CUSTOM ? customUrl : type;
+                if (!rawSource || rawSource === 'NONE') {
+                    this.stop();
                     return;
                 }
 
-                // Generatiivinen Ambient (jos ei tiedostoa)
-                const schedule = () => {
-                    let freqs = [];
-                    if (type === MusicType.AIRY) freqs = [174.61, 220.00, 261.63, 349.23];
-                    else if (type === MusicType.WARM) freqs = [130.81, 164.81, 196.00, 261.63];
-                    else if (type === MusicType.CALM) freqs = [110.00, 146.83, 164.81, 220.00];
-                    else return;
+                const source = encodeURI(rawSource);
+                
+                if (this.currentSource === source) return;
+                this.stop();
+                this.currentSource = source;
 
-                    const f = freqs[Math.floor(Math.random() * freqs.length)];
-                    this.spawnPad(f, 'sine', (Math.random() - 0.5) * 2, 10 + Math.random() * 5);
-                };
-
-                for(let i=0; i<3; i++) setTimeout(schedule, i * 2000);
-                const interval = setInterval(schedule, 4500);
-                this.activeIntervals.push(interval);
+                this.audioEl = new Audio(source);
+                this.audioEl.loop = true;
+                this.audioEl.volume = this.isMuted ? 0 : this.volume;
+                this.audioEl.play().catch(e => {
+                    console.warn(`Audio tiedostoa ei voitu toistaa: ${source}`, e);
+                    this.currentSource = MusicType.NONE;
+                });
             }
 
             stop() {
-                if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
-                this.activeIntervals.forEach(clearInterval);
-                this.activeIntervals = [];
-                const now = this.audioCtx?.currentTime || 0;
-                this.voices.forEach(v => { try { v.stop(now + 1); } catch(e) {} });
-                this.voices.clear();
-                this.currentType = MusicType.NONE;
+                if (this.audioEl) {
+                    this.audioEl.pause();
+                    this.audioEl = null;
+                }
+                this.currentSource = MusicType.NONE;
             }
         }
 
@@ -362,7 +273,6 @@
                         </div>
 
                         <div className="p-6 overflow-y-auto settings-scroll flex-1 space-y-6">
-                            <!-- Kieli ja Otsikko poistettu tästä kohdasta toiston välttämiseksi jos ne on jo -->
                             <div className="space-y-2">
                                 <label className="text-xs font-semibold text-slate-500 uppercase">${t.language}</label>
                                 <div className="grid grid-cols-3 gap-2">
@@ -378,14 +288,11 @@
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-slate-600">${t.eventTitle}</label>
-                                    <input className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800" 
+                                    <input className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800 focus:ring-2 focus:ring-blue-500" 
                                         value=${settings.eventTitle} 
                                         onChange=${e => setSettings({...settings, eventTitle: e.target.value})} />
                                 </div>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="flex flex-col space-y-2">
+                                <div className="space-y-2">
                                     <label className="text-xs font-semibold text-slate-500 uppercase">${t.startTime}</label>
                                     <input type="time" className="w-full h-11 px-4 py-2 bg-white border-2 border-slate-300 rounded-xl outline-none text-lg font-bold text-slate-900 shadow-sm focus:border-blue-500 transition-all" 
                                         value=${settings.startTime} 
@@ -393,45 +300,68 @@
                                 </div>
                             </div>
 
-                            <div className="space-y-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-4">
                                 <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">${t.music}</label>
-                                <select className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" 
+                                <select className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 focus:ring-2 focus:ring-blue-500" 
                                     value=${settings.musicType} 
                                     onChange=${e => setSettings({...settings, musicType: e.target.value})}>
                                     <option value=${MusicType.NONE}>${t.musicNone}</option>
+                                    <option value=${MusicType.HILJAINEN}>${t.musicHiljainen}</option>
+                                    <option value=${MusicType.HERAA}>${t.musicHeraa}</option>
+                                    <option value=${MusicType.RAUHALLINEN}>${t.musicRauhallinen}</option>
                                     <option value=${MusicType.CUSTOM}>${t.musicCustom}</option>
-                                    <optgroup label="Ambient Synteesi">
-                                        <option value=${MusicType.AIRY}>${t.musicAiry}</option>
-                                        <option value=${MusicType.WARM}>${t.musicWarm}</option>
-                                        <option value=${MusicType.CALM}>${t.musicCalm}</option>
-                                    </optgroup>
-                                    <optgroup label="Suno (Ladatut tiedostot)">
-                                        <option value=${MusicType.SUNO1}>${t.sunoInspiring}</option>
-                                        <option value=${MusicType.SUNO2}>${t.sunoSummer}</option>
-                                        <option value=${MusicType.SUNO3}>${t.sunoJourney}</option>
-                                        <option value=${MusicType.SUNO4}>${t.sunoPeace}</option>
-                                        <option value=${MusicType.SUNO5}>${t.sunoFuture}</option>
-                                    </optgroup>
                                 </select>
-                                
-                                <div className="space-y-3 pt-2">
-                                    <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">${t.musicSunoNotice}</p>
-                                    <div className="grid grid-cols-1 gap-2">
-                                        ${[1,2,3,4,5].map(i => html`
-                                            <div key=${i} className="flex items-center gap-3 bg-white p-2 rounded-lg border border-slate-200">
-                                                <span className="text-[10px] font-bold text-slate-400 w-4">${i}</span>
-                                                <input type="file" accept="audio/*,video/*" onChange=${e => handleFileChange(e, `suno${i}Url`)} className="text-[10px] flex-1" />
-                                                ${settings[`suno${i}Url`] && html`<span className="text-green-500">✓</span>`}
-                                            </div>
-                                        `)}
-                                    </div>
-                                </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-4 border-t pt-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="text-xs font-semibold text-slate-500 uppercase mb-1 block">${t.logo}</label>
+                                        <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'logoUrl')} className="text-xs w-full bg-slate-50 p-2 rounded-lg border border-slate-200" />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-slate-500 uppercase mb-1 block">${t.bgImage}</label>
+                                        <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'imageUrl')} className="text-xs w-full bg-slate-50 p-2 rounded-lg border border-slate-200" />
+                                    </div>
+                                </div>
+
+                                <div className="p-4 bg-purple-50 rounded-xl border border-purple-100 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <label className="text-sm font-bold text-purple-900 uppercase">${t.breakMode}</label>
+                                        <input type="checkbox" className="w-5 h-5" checked=${settings.isBreakMode} onChange=${e => setSettings({...settings, isBreakMode: e.target.checked})} />
+                                    </div>
+                                    ${settings.isBreakMode && html`
+                                        <input className="w-full px-3 py-2 bg-white border border-purple-200 rounded-lg text-sm text-slate-800" 
+                                            placeholder=${t.breakTextLabel}
+                                            value=${settings.breakText} 
+                                            onChange=${e => setSettings({...settings, breakText: e.target.value})} />
+                                    `}
+                                </div>
+
+                                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                                    <label className="text-xs font-bold text-slate-500 uppercase">${t.showWarnings}</label>
+                                    <div className="grid grid-cols-1 gap-2">
+                                        <div className="flex items-center gap-2">
+                                            <input type="checkbox" checked=${settings.showRecordingWarning} onChange=${e => setSettings({...settings, showRecordingWarning: e.target.checked})} />
+                                            <span className="text-sm text-slate-700">${t.showRecording}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <input type="checkbox" checked=${settings.showCameraWarning} onChange=${e => setSettings({...settings, showCameraWarning: e.target.checked})} />
+                                            <span className="text-sm text-slate-700">${t.showCamera}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <input type="checkbox" checked=${settings.showMicWarning} onChange=${e => setSettings({...settings, showMicWarning: e.target.checked})} />
+                                            <span className="text-sm text-slate-700">${t.showMic}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div>
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.bgImage}</label>
-                                    <input type="file" accept="image/*" onChange=${e => handleFileChange(e, 'imageUrl')} className="text-sm w-full" />
+                                    <label className="text-xs font-semibold text-slate-500 uppercase mb-1 block">${t.extraInfoLabel}</label>
+                                    <textarea className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg h-32 resize-none text-sm text-slate-800 focus:ring-2 focus:ring-blue-500" 
+                                        placeholder="Kirjoita tervehdys tähän..."
+                                        value=${settings.extraInfo} 
+                                        onChange=${e => setSettings({...settings, extraInfo: e.target.value})} />
                                 </div>
                             </div>
                         </div>
@@ -451,17 +381,16 @@
                 startTime: '10:00',
                 backgroundColor: '#f1f5f9',
                 showSeconds: true,
-                extraInfo: 'Tervetuloa mukaan! Aloitamme hetken kuluttua.',
+                extraInfo: 'Tervetuloa mukaan!\nAloitamme hetken kuluttua.',
                 musicType: MusicType.NONE,
                 customMusicUrl: null,
-                suno1Url: null, suno2Url: null, suno3Url: null, suno4Url: null, suno5Url: null,
                 logoUrl: null,
                 imageUrl: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200',
-                showCameraWarning: true,
-                showMicWarning: true,
-                titlePosition: 'overlay',
                 isBreakMode: false,
                 breakText: 'Olemme pienellä tauolla. Palaamme pian!',
+                showCameraWarning: true,
+                showMicWarning: true,
+                showRecordingWarning: true,
             });
 
             const t = translations[settings.language];
@@ -471,7 +400,6 @@
 
             useEffect(() => {
                 const timer = setInterval(() => {
-                    if (!settings.startTime) return;
                     const [h, m] = settings.startTime.split(':').map(Number);
                     const target = new Date(); target.setHours(h, m, 0, 0);
                     if (target.getTime() < Date.now()) target.setDate(target.getDate() + 1);
@@ -487,16 +415,10 @@
             }, [settings.startTime]);
 
             useEffect(() => {
-                audioService.play(settings.musicType, settings);
-            }, [settings.musicType, settings.customMusicUrl, settings.suno1Url, settings.suno2Url, settings.suno3Url, settings.suno4Url, settings.suno5Url]);
+                audioService.play(settings.musicType, settings.customMusicUrl);
+            }, [settings.musicType, settings.customMusicUrl]);
 
             useEffect(() => { audioService.setMuted(isMuted); }, [isMuted]);
-
-            const Title = ({ isOverlay }) => html`
-                <h1 className="font-bold tracking-tight leading-tight ${isOverlay ? "text-3xl md:text-5xl text-white drop-shadow-2xl" : "text-3xl md:text-5xl text-slate-900"}">
-                    ${settings.eventTitle}
-                </h1>
-            `;
 
             return html`
                 <div className="h-screen w-screen flex flex-col relative transition-colors duration-700" style=${{ backgroundColor: settings.backgroundColor }}>
@@ -512,7 +434,7 @@
                                 <div className="w-full aspect-video bg-white rounded-[2.5rem] overflow-hidden shadow-2xl relative border-8 border-white/50">
                                     <img src=${settings.imageUrl} className="w-full h-full object-cover" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end pb-12 px-10">
-                                        <${Title} isOverlay=${true} />
+                                        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-2xl">${settings.eventTitle}</h1>
                                     </div>
                                     ${settings.isBreakMode && html`
                                         <div className="absolute inset-0 bg-purple-900/60 backdrop-blur-md flex items-center justify-center z-20">
@@ -527,7 +449,7 @@
                             <div className="lg:col-span-5 flex flex-col space-y-6">
                                 <div className="bg-white/40 backdrop-blur-2xl rounded-[3rem] p-10 border border-white/60 shadow-2xl space-y-6">
                                     <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">${settings.isBreakMode ? t.notice : t.startsIn}</p>
-                                    ${settings.isBreakMode ? html`<p className="text-3xl font-bold text-slate-800 leading-tight">${settings.breakText}</p>` : html`
+                                    ${settings.isBreakMode ? html`<p className="text-3xl font-bold text-slate-800 leading-tight whitespace-pre-wrap">${settings.breakText}</p>` : html`
                                         <div className="flex gap-4">
                                             ${[
                                                 {v: timeLeft.days, l: t.days, s: timeLeft.days > 0},
@@ -543,15 +465,31 @@
                                         </div>
                                     `}
                                 </div>
+                                
+                                ${settings.extraInfo && !settings.isBreakMode && html`
+                                    <div className="bg-white/20 p-8 rounded-3xl border border-white/30 backdrop-blur-sm shadow-sm">
+                                        <div className="text-slate-700 text-lg md:text-xl font-medium leading-relaxed whitespace-pre-wrap italic">
+                                            ${settings.extraInfo}
+                                        </div>
+                                    </div>
+                                `}
 
                                 <div className="flex flex-col gap-3">
+                                    ${settings.showRecordingWarning && html`
+                                        <div className="bg-blue-50/90 backdrop-blur-sm text-blue-700 px-5 py-4 rounded-2xl flex items-center gap-4 text-xs md:text-sm font-bold shadow-sm border border-blue-200 animate-in slide-in-from-right duration-300">
+                                            <div className="flex items-center justify-center w-8 h-8 text-xl">
+                                                🔴
+                                            </div>
+                                            <span>${t.recWarn}</span>
+                                        </div>
+                                    `}
                                     ${settings.showCameraWarning && html`
                                         <div className="bg-red-50/80 backdrop-blur-sm text-red-700 px-5 py-4 rounded-2xl flex items-center gap-4 text-xs md:text-sm font-bold shadow-sm border border-red-200 animate-in slide-in-from-right duration-500">
                                             <div className="relative inline-flex items-center justify-center w-8 h-8">
                                                 <span className="text-xl">📷</span>
                                                 <div className="strike-line"></div>
                                             </div>
-                                            <span>${t.camMessage}</span>
+                                            <span>${t.camWarn}</span>
                                         </div>
                                     `}
                                     ${settings.showMicWarning && html`
@@ -560,7 +498,7 @@
                                                 <span className="text-xl">🎤</span>
                                                 <div className="strike-line"></div>
                                             </div>
-                                            <span>${t.micMessage}</span>
+                                            <span>${t.micWarn}</span>
                                         </div>
                                     `}
                                 </div>
@@ -569,12 +507,12 @@
                     </main>
 
                     <footer className="h-24 bg-white/20 backdrop-blur-xl flex flex-col items-center justify-center relative border-t border-white/40 px-4">
-                        <div className="text-center space-y-1">
+                        <div className="text-center">
                             <p className="text-slate-600 text-sm font-semibold tracking-wide">${t.footerTop}</p>
                             <p className="text-slate-500 text-[11px] font-medium italic">${t.footerBottom}</p>
                         </div>
                         <div className="absolute right-12 flex gap-4">
-                            <button onClick=${() => setIsMuted(!isMuted)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform">
+                            <button onClick=${() => setIsMuted(!isMuted)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform focus:outline-none">
                                 ${isMuted ? '🔇' : (settings.musicType !== 'NONE' ? html`
                                     <div className="music-playing-bars text-blue-600">
                                         <div className="music-bar"></div>
@@ -583,7 +521,7 @@
                                     </div>
                                 ` : '🔊')}
                             </button>
-                            <button onClick=${() => setIsSettingsOpen(true)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform">
+                            <button onClick=${() => setIsSettingsOpen(true)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform focus:outline-none">
                                 ⚙️
                             </button>
                         </div>
