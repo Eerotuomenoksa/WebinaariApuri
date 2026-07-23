@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SeniorSurf Verkkolähetyslaskuri</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:,">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -46,6 +46,7 @@
             box-shadow: 0 0 2px rgba(0,0,0,0.3);
         }
     </style>
+    <link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <div id="root"></div>
@@ -72,16 +73,24 @@
                 settings: 'Asetukset',
                 language: 'Kieli',
                 eventTitle: 'Otsikko',
+                startDate: 'Päivämäärä',
                 startTime: 'Alkamisaika',
                 extraInfoLabel: 'Lisätiedot / Tervehdys',
                 music: 'Taustamusiikki',
+                musicFile: 'Valitse äänitiedosto',
                 logo: 'Lataa Logo',
                 bgImage: 'Lataa Taustakuva',
-                breakMode: 'Tapahtuman tila',
+                showLogo: 'Näytä logo',
+                showImage: 'Näytä kuva',
+                breakMode: 'Tauko tila',
                 breakOn: 'Tauko päällä',
+                breakReturnDate: 'Tauko päättyy päivänä',
+                breakReturnTime: 'Tauko päättyy klo',
                 showSeconds: 'Näytä sekunnit kellossa',
                 ready: 'VALMIS',
                 startsIn: 'Tapahtuma alkaa',
+                returnsIn: 'Olemme tauolla',
+                returningAt: 'Palaamme klo',
                 notice: 'Ilmoitus',
                 days: 'Pv',
                 hours: 'H',
@@ -89,12 +98,9 @@
                 seconds: 'Sek',
                 footerTop: 'SeniorSurf seniorien digiosallisuuden edistäjä',
                 footerBottom: 'Palvelun tarjoaa Vanhustyön keskusliitto ry',
-                breakTitle: 'Pieni tauko',
+                breakTitle: 'Olemme tauolla',
                 musicNone: 'Ei musiikkia',
                 musicCustom: 'Lataa oma tiedosto...',
-                musicHiljainen: 'Hiljainen odotus',
-                musicHeraa: 'Herää Nyt',
-                musicRauhallinen: 'Rauhallinen odotus',
                 breakTextLabel: 'Taukoteksti',
                 camWarn: 'Pidäthän kameran suljettuna esityksen ajan.',
                 micWarn: 'Pidäthän mikrofonin suljettuna esityksen ajan.',
@@ -102,22 +108,36 @@
                 showWarnings: 'Näytä varoitukset',
                 showRecording: 'Tallennusilmoitus',
                 showCamera: 'Kamerapyyntö',
-                showMic: 'Mikrofonipyyntö'
+                showMic: 'Mikrofonipyyntö',
+                bgColor: 'Taustaväri',
+                titlePosition: 'Otsikon sijainti',
+                elementsLabel: 'Näytä elementit',
+                posAbove: 'Kuvan yllä',
+                posInside: 'Kuvan sisällä',
+                posBelow: 'Kuvan alla'
             },
             sv: {
                 settings: 'Inställningar',
                 language: 'Språk',
                 eventTitle: 'Rubrik',
+                startDate: 'Datum',
                 startTime: 'Starttid',
                 extraInfoLabel: 'Tilläggsinformation',
                 music: 'Bakgrundsmusik',
+                musicFile: 'Välj ljudfil',
                 logo: 'Ladda upp logotyp',
                 bgImage: 'Ladda upp bakgrundsbild',
-                breakMode: 'Händelsestatus',
+                showLogo: 'Visa logotyp',
+                showImage: 'Visa bakgrundsbild',
+                breakMode: 'Pausläge',
                 breakOn: 'Paus på',
+                breakReturnDate: 'Pausen slutar den',
+                breakReturnTime: 'Pausen slutar kl',
                 showSeconds: 'Visa sekunder',
                 ready: 'KLART',
                 startsIn: 'Händelsen börjar om',
+                returnsIn: 'Vi är på paus',
+                returningAt: 'Vi återkommer kl',
                 notice: 'Meddelande',
                 days: 'Dag',
                 hours: 'Tim',
@@ -125,12 +145,9 @@
                 seconds: 'Sek',
                 footerTop: 'SeniorSurf främjar seniorers digitala delaktighet',
                 footerBottom: 'Tjänsten tillhandhålls av Centralförbundet för de gamlas väl ry',
-                breakTitle: 'Kort paus',
+                breakTitle: 'Vi är på paus',
                 musicNone: 'Ingen musik',
                 musicCustom: 'Ladda upp egen fil...',
-                musicHiljainen: 'Stilla väntan',
-                musicHeraa: 'Vakna Nu',
-                musicRauhallinen: 'Lugn väntan',
                 breakTextLabel: 'Paustext',
                 camWarn: 'Vänligen håll kameran avstängd under presentationen.',
                 micWarn: 'Vänligen håll mikrofonen avstängd under presentationen.',
@@ -138,22 +155,36 @@
                 showWarnings: 'Visa varningar',
                 showRecording: 'Inspelningsmeddelande',
                 showCamera: 'Kamerabegäran',
-                showMic: 'Mikrofonbegäran'
+                showMic: 'Microfonbegäran',
+                bgColor: 'Bakgrundsfärg',
+                titlePosition: 'Rubrikens placering',
+                elementsLabel: 'Visa element',
+                posAbove: 'Ovanför bilden',
+                posInside: 'Inuti bilden',
+                posBelow: 'Under bilden'
             },
             en: {
                 settings: 'Settings',
                 language: 'Language',
                 eventTitle: 'Title',
+                startDate: 'Date',
                 startTime: 'Start Time',
                 extraInfoLabel: 'Additional Info',
                 music: 'Background Music',
+                musicFile: 'Choose audio file',
                 logo: 'Upload Logo',
                 bgImage: 'Upload Background Image',
-                breakMode: 'Event Status',
+                showLogo: 'Show logo',
+                showImage: 'Show image',
+                breakMode: 'Break Mode',
                 breakOn: 'Break Active',
+                breakReturnDate: 'Break end date',
+                breakReturnTime: 'Break ends at',
                 showSeconds: 'Show seconds',
                 ready: 'DONE',
                 startsIn: 'Event starts in',
+                returnsIn: 'On a break',
+                returningAt: 'Returning at',
                 notice: 'Notice',
                 days: 'Days',
                 hours: 'Hrs',
@@ -161,12 +192,9 @@
                 seconds: 'Sec',
                 footerTop: 'SeniorSurf promoting digital inclusion for seniors',
                 footerBottom: 'Service provided by the Central Union for the Welfare of the Aged ry',
-                breakTitle: 'Short Break',
+                breakTitle: 'On a break',
                 musicNone: 'No music',
                 musicCustom: 'Upload custom file...',
-                musicHiljainen: 'Quiet Waiting',
-                musicHeraa: 'Wake Up Now',
-                musicRauhallinen: 'Calm Waiting',
                 breakTextLabel: 'Break Text',
                 camWarn: 'Please keep your camera off during the presentation.',
                 micWarn: 'Please keep your microphone muted during the presentation.',
@@ -174,49 +202,63 @@
                 showWarnings: 'Show warnings',
                 showRecording: 'Recording notification',
                 showCamera: 'Camera request',
-                showMic: 'Microphone request'
+                showMic: 'Microphone request',
+                bgColor: 'Background Color',
+                titlePosition: 'Title Position',
+                elementsLabel: 'Show elements',
+                posAbove: 'Above image',
+                posInside: 'Inside image',
+                posBelow: 'Below image'
             }
+        };
+
+        const toLocalDateValue = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+
+        const toTimeValue = (date) =>
+            `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+        const getNextHour = () => {
+            const nextHour = new Date();
+            nextHour.setHours(nextHour.getHours() + 1, 0, 0, 0);
+            return { date: toLocalDateValue(nextHour), time: toTimeValue(nextHour) };
+        };
+
+        const getFutureTime = (minutes) => {
+            const future = new Date(Date.now() + minutes * 60 * 1000);
+            future.setSeconds(0, 0);
+            return { date: toLocalDateValue(future), time: toTimeValue(future) };
+        };
+
+        const toTimestamp = (date, time) => {
+            const timestamp = new Date(`${date}T${time}:00`).getTime();
+            return Number.isNaN(timestamp) ? null : timestamp;
         };
 
         const MusicType = {
             NONE: 'NONE',
-            CUSTOM: 'CUSTOM',
-            HILJAINEN: 'musiikki/Hiljainen odotus.mp3',
-            HERAA: 'musiikki/Herää Nyt.mp3',
-            RAUHALLINEN: 'musiikki/Rauhallinen odotus.mp3'
+            CUSTOM: 'CUSTOM'
         };
 
         class AudioService {
             constructor() {
-                this.audioCtx = null;
-                this.mainGain = null;
                 this.currentSource = MusicType.NONE;
                 this.volume = 0.25;
                 this.isMuted = false;
                 this.audioEl = null;
             }
 
-            init() {
-                if (!this.audioCtx) {
-                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    this.mainGain = this.audioCtx.createGain();
-                    this.mainGain.connect(this.audioCtx.destination);
-                    this.mainGain.gain.setValueAtTime(this.isMuted ? 0 : this.volume, this.audioCtx.currentTime);
-                }
-                if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
-            }
-
             setMuted(muted) {
                 this.isMuted = muted;
                 const target = this.isMuted ? 0 : this.volume;
-                if (this.mainGain && this.audioCtx) {
-                    this.mainGain.gain.setTargetAtTime(target, this.audioCtx.currentTime, 0.3);
-                }
                 if (this.audioEl) this.audioEl.volume = target;
             }
 
             play(type, customUrl) {
-                this.init();
                 const rawSource = type === MusicType.CUSTOM ? customUrl : type;
                 if (!rawSource || rawSource === 'NONE') {
                     this.stop();
@@ -234,7 +276,7 @@
                 this.audioEl.volume = this.isMuted ? 0 : this.volume;
                 this.audioEl.play().catch(e => {
                     console.warn(`Audio tiedostoa ei voitu toistaa: ${source}`, e);
-                    this.currentSource = MusicType.NONE;
+                    this.stop();
                 });
             }
 
@@ -256,7 +298,13 @@
                 const file = e.target.files?.[0];
                 if (file) {
                     const url = URL.createObjectURL(file);
-                    setSettings({ ...settings, [key]: url });
+                    setSettings(current => {
+                        const previousUrl = current[key];
+                        if (typeof previousUrl === 'string' && previousUrl.startsWith('blob:')) {
+                            URL.revokeObjectURL(previousUrl);
+                        }
+                        return { ...current, [key]: url };
+                    });
                 }
             };
 
@@ -292,11 +340,40 @@
                                         value=${settings.eventTitle} 
                                         onChange=${e => setSettings({...settings, eventTitle: e.target.value})} />
                                 </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-semibold text-slate-500 uppercase">${t.startDate}</label>
+                                        <input type="date" className="w-full h-11 px-4 py-2 bg-white border-2 border-slate-300 rounded-xl outline-none text-sm font-bold text-slate-900 shadow-sm focus:border-blue-500 transition-all"
+                                            value=${settings.startDate}
+                                            onChange=${e => setSettings({...settings, startDate: e.target.value})} />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-semibold text-slate-500 uppercase">${t.startTime}</label>
+                                        <input type="time" className="w-full h-11 px-4 py-2 bg-white border-2 border-slate-300 rounded-xl outline-none text-lg font-bold text-slate-900 shadow-sm focus:border-blue-500 transition-all"
+                                            value=${settings.startTime}
+                                            onChange=${e => setSettings({...settings, startTime: e.target.value})} />
+                                    </div>
+                                </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.startTime}</label>
-                                    <input type="time" className="w-full h-11 px-4 py-2 bg-white border-2 border-slate-300 rounded-xl outline-none text-lg font-bold text-slate-900 shadow-sm focus:border-blue-500 transition-all" 
-                                        value=${settings.startTime} 
-                                        onChange=${e => setSettings({...settings, startTime: e.target.value})} />
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.bgColor}</label>
+                                    <div className="flex gap-2 items-center">
+                                        <input type="color" className="w-12 h-10 p-1 bg-white border border-slate-200 rounded-lg cursor-pointer"
+                                            value=${settings.backgroundColor}
+                                            onChange=${e => setSettings({...settings, backgroundColor: e.target.value})} />
+                                        <input type="text" className="flex-1 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800 focus:ring-2 focus:ring-blue-500 text-sm"
+                                            value=${settings.backgroundColor}
+                                            onChange=${e => setSettings({...settings, backgroundColor: e.target.value})} />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-slate-500 uppercase">${t.titlePosition}</label>
+                                    <select className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 focus:ring-2 focus:ring-blue-500"
+                                        value=${settings.titlePosition}
+                                        onChange=${e => setSettings({...settings, titlePosition: e.target.value})}>
+                                        <option value="above">${t.posAbove}</option>
+                                        <option value="inside">${t.posInside}</option>
+                                        <option value="below">${t.posBelow}</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -306,11 +383,16 @@
                                     value=${settings.musicType} 
                                     onChange=${e => setSettings({...settings, musicType: e.target.value})}>
                                     <option value=${MusicType.NONE}>${t.musicNone}</option>
-                                    <option value=${MusicType.HILJAINEN}>${t.musicHiljainen}</option>
-                                    <option value=${MusicType.HERAA}>${t.musicHeraa}</option>
-                                    <option value=${MusicType.RAUHALLINEN}>${t.musicRauhallinen}</option>
                                     <option value=${MusicType.CUSTOM}>${t.musicCustom}</option>
                                 </select>
+                                ${settings.musicType === MusicType.CUSTOM && html`
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-semibold text-slate-500 uppercase">${t.musicFile}</label>
+                                        <input type="file" accept="audio/*"
+                                            onChange=${e => handleFileChange(e, 'customMusicUrl')}
+                                            className="text-xs w-full bg-white p-2 rounded-lg border border-slate-200" />
+                                    </div>
+                                `}
                             </div>
 
                             <div className="space-y-4 border-t pt-4">
@@ -325,16 +407,59 @@
                                     </div>
                                 </div>
 
+                                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                                    <label className="text-xs font-bold text-slate-500 uppercase mb-2 block">${t.elementsLabel}</label>
+                                    <div className="grid grid-cols-1 gap-2">
+                                        <div className="flex items-center gap-2">
+                                            <input type="checkbox" id="checkShowLogo" checked=${settings.showLogo} onChange=${e => setSettings({...settings, showLogo: e.target.checked})} />
+                                            <label htmlFor="checkShowLogo" className="text-sm text-slate-700 cursor-pointer">${t.showLogo}</label>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <input type="checkbox" id="checkShowImage" checked=${settings.showImage} onChange=${e => setSettings({...settings, showImage: e.target.checked})} />
+                                            <label htmlFor="checkShowImage" className="text-sm text-slate-700 cursor-pointer">${t.showImage}</label>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="p-4 bg-purple-50 rounded-xl border border-purple-100 space-y-3">
                                     <div className="flex items-center justify-between">
                                         <label className="text-sm font-bold text-purple-900 uppercase">${t.breakMode}</label>
-                                        <input type="checkbox" className="w-5 h-5" checked=${settings.isBreakMode} onChange=${e => setSettings({...settings, isBreakMode: e.target.checked})} />
+                                        <input type="checkbox" className="w-5 h-5" checked=${settings.isBreakMode}
+                                            onChange=${e => {
+                                                if (!e.target.checked) {
+                                                    setSettings({...settings, isBreakMode: false});
+                                                    return;
+                                                }
+                                                const returnAt = getFutureTime(15);
+                                                setSettings({
+                                                    ...settings,
+                                                    isBreakMode: true,
+                                                    breakReturnDate: returnAt.date,
+                                                    breakReturnTime: returnAt.time
+                                                });
+                                            }} />
                                     </div>
                                     ${settings.isBreakMode && html`
-                                        <input className="w-full px-3 py-2 bg-white border border-purple-200 rounded-lg text-sm text-slate-800" 
-                                            placeholder=${t.breakTextLabel}
-                                            value=${settings.breakText} 
-                                            onChange=${e => setSettings({...settings, breakText: e.target.value})} />
+                                        <div className="space-y-3">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-bold text-purple-600 uppercase">${t.breakReturnDate}</label>
+                                                    <input type="date" className="w-full px-3 py-2 bg-white border border-purple-200 rounded-lg text-sm text-slate-800"
+                                                        value=${settings.breakReturnDate}
+                                                        onChange=${e => setSettings({...settings, breakReturnDate: e.target.value})} />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-bold text-purple-600 uppercase">${t.breakReturnTime}</label>
+                                                    <input type="time" className="w-full px-3 py-2 bg-white border border-purple-200 rounded-lg text-sm text-slate-800"
+                                                        value=${settings.breakReturnTime}
+                                                        onChange=${e => setSettings({...settings, breakReturnTime: e.target.value})} />
+                                                </div>
+                                            </div>
+                                            <input className="w-full px-3 py-2 bg-white border border-purple-200 rounded-lg text-sm text-slate-800"
+                                                placeholder=${t.breakTextLabel}
+                                                value=${settings.breakText}
+                                                onChange=${e => setSettings({...settings, breakText: e.target.value})} />
+                                        </div>
                                     `}
                                 </div>
 
@@ -342,16 +467,16 @@
                                     <label className="text-xs font-bold text-slate-500 uppercase">${t.showWarnings}</label>
                                     <div className="grid grid-cols-1 gap-2">
                                         <div className="flex items-center gap-2">
-                                            <input type="checkbox" checked=${settings.showRecordingWarning} onChange=${e => setSettings({...settings, showRecordingWarning: e.target.checked})} />
-                                            <span className="text-sm text-slate-700">${t.showRecording}</span>
+                                            <input type="checkbox" id="checkRec" checked=${settings.showRecordingWarning} onChange=${e => setSettings({...settings, showRecordingWarning: e.target.checked})} />
+                                            <label htmlFor="checkRec" className="text-sm text-slate-700 cursor-pointer">${t.showRecording}</label>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <input type="checkbox" checked=${settings.showCameraWarning} onChange=${e => setSettings({...settings, showCameraWarning: e.target.checked})} />
-                                            <span className="text-sm text-slate-700">${t.showCamera}</span>
+                                            <input type="checkbox" id="checkCam" checked=${settings.showCameraWarning} onChange=${e => setSettings({...settings, showCameraWarning: e.target.checked})} />
+                                            <label htmlFor="checkCam" className="text-sm text-slate-700 cursor-pointer">${t.showCamera}</label>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <input type="checkbox" checked=${settings.showMicWarning} onChange=${e => setSettings({...settings, showMicWarning: e.target.checked})} />
-                                            <span className="text-sm text-slate-700">${t.showMic}</span>
+                                            <input type="checkbox" id="checkMic" checked=${settings.showMicWarning} onChange=${e => setSettings({...settings, showMicWarning: e.target.checked})} />
+                                            <label htmlFor="checkMic" className="text-sm text-slate-700 cursor-pointer">${t.showMic}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -375,44 +500,72 @@
         };
 
         const App = () => {
-            const [settings, setSettings] = useState({
-                language: 'fi',
-                eventTitle: 'Verkkolähetyksen Otsikko',
-                startTime: '10:00',
-                backgroundColor: '#f1f5f9',
-                showSeconds: true,
-                extraInfo: 'Tervetuloa mukaan!\nAloitamme hetken kuluttua.',
-                musicType: MusicType.NONE,
-                customMusicUrl: null,
-                logoUrl: null,
-                imageUrl: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200',
-                isBreakMode: false,
-                breakText: 'Olemme pienellä tauolla. Palaamme pian!',
-                showCameraWarning: true,
-                showMicWarning: true,
-                showRecordingWarning: true,
+            const [settings, setSettings] = useState(() => {
+                const initialStart = getNextHour();
+                const initialBreakReturn = getFutureTime(15);
+                return {
+                    language: 'fi',
+                    eventTitle: 'Verkkolähetyksen Otsikko',
+                    startDate: initialStart.date,
+                    startTime: initialStart.time,
+                    backgroundColor: '#f1f5f9',
+                    titlePosition: 'inside',
+                    showSeconds: true,
+                    extraInfo: 'Tervetuloa mukaan!\nAloitamme hetken kuluttua.',
+                    musicType: MusicType.NONE,
+                    customMusicUrl: null,
+                    logoUrl: null,
+                    imageUrl: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200',
+                    showLogo: true,
+                    showImage: true,
+                    isBreakMode: false,
+                    breakText: '',
+                    breakReturnDate: initialBreakReturn.date,
+                    breakReturnTime: initialBreakReturn.time,
+                    showCameraWarning: true,
+                    showMicWarning: true,
+                    showRecordingWarning: true,
+                };
             });
 
             const t = translations[settings.language];
             const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+            const [breakTimeLeft, setBreakTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
             const [isSettingsOpen, setIsSettingsOpen] = useState(false);
             const [isMuted, setIsMuted] = useState(false);
 
             useEffect(() => {
-                const timer = setInterval(() => {
-                    const [h, m] = settings.startTime.split(':').map(Number);
-                    const target = new Date(); target.setHours(h, m, 0, 0);
-                    if (target.getTime() < Date.now()) target.setDate(target.getDate() + 1);
-                    const diff = Math.max(0, target.getTime() - Date.now());
+                const updateCountdowns = () => {
+                    const eventTarget = toTimestamp(settings.startDate, settings.startTime);
+                    const diff = eventTarget === null ? 0 : Math.max(0, eventTarget - Date.now());
                     setTimeLeft({
                         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
                         hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
                         minutes: Math.floor((diff / 1000 / 60) % 60),
                         seconds: Math.floor((diff / 1000) % 60)
                     });
-                }, 1000);
+
+                    if (settings.isBreakMode) {
+                        const breakTarget = toTimestamp(settings.breakReturnDate, settings.breakReturnTime);
+                        const bDiff = breakTarget === null ? 0 : Math.max(0, breakTarget - Date.now());
+                        setBreakTimeLeft({
+                            days: Math.floor(bDiff / (1000 * 60 * 60 * 24)),
+                            hours: Math.floor((bDiff / (1000 * 60 * 60)) % 24),
+                            minutes: Math.floor((bDiff / 1000 / 60) % 60),
+                            seconds: Math.floor((bDiff / 1000) % 60)
+                        });
+                    }
+                };
+                updateCountdowns();
+                const timer = setInterval(updateCountdowns, 1000);
                 return () => clearInterval(timer);
-            }, [settings.startTime]);
+            }, [
+                settings.startDate,
+                settings.startTime,
+                settings.breakReturnDate,
+                settings.breakReturnTime,
+                settings.isBreakMode
+            ]);
 
             useEffect(() => {
                 audioService.play(settings.musicType, settings.customMusicUrl);
@@ -420,22 +573,44 @@
 
             useEffect(() => { audioService.setMuted(isMuted); }, [isMuted]);
 
+            useEffect(() => {
+                const handleKeyPress = (e) => {
+                    const target = e.target;
+                    const isInteractive = target instanceof HTMLElement && (
+                        target.isContentEditable ||
+                        ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(target.tagName)
+                    );
+                    if (e.code === 'Space' && !isInteractive) {
+                        e.preventDefault();
+                        setIsMuted(prev => !prev);
+                    }
+                };
+                window.addEventListener('keydown', handleKeyPress);
+                return () => window.removeEventListener('keydown', handleKeyPress);
+            }, []);
+
             return html`
                 <div className="h-screen w-screen flex flex-col relative transition-colors duration-700" style=${{ backgroundColor: settings.backgroundColor }}>
                     
                     <div className="absolute top-8 left-8 z-20">
-                        ${settings.logoUrl ? html`<img src=${settings.logoUrl} className="h-20 md:h-28 object-contain" />` : html`<div className="h-20 w-20 md:h-28 md:w-28 bg-white/50 rounded-2xl flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase border border-dashed">Logo</div>`}
+                        ${settings.showLogo && (settings.logoUrl ? html`<img src=${settings.logoUrl} className="h-20 md:h-28 object-contain" />` : html`<div className="h-20 w-20 md:h-28 md:w-28 bg-white/50 rounded-2xl flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase border border-dashed">Logo</div>`)}
                     </div>
 
                     <main className="flex-1 flex flex-col items-center justify-center px-8 lg:px-20 py-10">
                         <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                             
                             <div className="lg:col-span-7 flex flex-col items-center lg:items-start space-y-6">
+                                ${(settings.titlePosition === 'above' || (!settings.showImage && settings.titlePosition === 'inside')) && html`
+                                    <h1 className="text-3xl md:text-5xl font-bold text-slate-800 w-full text-center lg:text-left">${settings.eventTitle}</h1>
+                                `}
+                                ${settings.showImage && html`
                                 <div className="w-full aspect-video bg-white rounded-[2.5rem] overflow-hidden shadow-2xl relative border-8 border-white/50">
                                     <img src=${settings.imageUrl} className="w-full h-full object-cover" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end pb-12 px-10">
-                                        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-2xl">${settings.eventTitle}</h1>
-                                    </div>
+                                    ${settings.titlePosition === 'inside' && html`
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end pb-12 px-10">
+                                            <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-2xl">${settings.eventTitle}</h1>
+                                        </div>
+                                    `}
                                     ${settings.isBreakMode && html`
                                         <div className="absolute inset-0 bg-purple-900/60 backdrop-blur-md flex items-center justify-center z-20">
                                             <div className="bg-white px-10 py-6 rounded-3xl shadow-2xl border-b-8 border-purple-700 transform -rotate-3">
@@ -444,12 +619,37 @@
                                         </div>
                                     `}
                                 </div>
+                                `}
+                                ${settings.titlePosition === 'below' && html`
+                                    <h1 className="text-3xl md:text-5xl font-bold text-slate-800 w-full text-center lg:text-left">${settings.eventTitle}</h1>
+                                `}
                             </div>
 
                             <div className="lg:col-span-5 flex flex-col space-y-6">
                                 <div className="bg-white/40 backdrop-blur-2xl rounded-[3rem] p-10 border border-white/60 shadow-2xl space-y-6">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">${settings.isBreakMode ? t.notice : t.startsIn}</p>
-                                    ${settings.isBreakMode ? html`<p className="text-3xl font-bold text-slate-800 leading-tight whitespace-pre-wrap">${settings.breakText}</p>` : html`
+                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">${settings.isBreakMode ? t.returnsIn : t.startsIn}</p>
+
+                                    ${settings.isBreakMode ? html`
+                                        <div className="space-y-6">
+                                            <div className="flex gap-4">
+                                                ${[
+                                                    {v: breakTimeLeft.days, l: t.days, s: breakTimeLeft.days > 0},
+                                                    {v: breakTimeLeft.hours, l: t.hours, s: breakTimeLeft.hours > 0},
+                                                    {v: breakTimeLeft.minutes, l: t.minutes, s: true},
+                                                    {v: breakTimeLeft.seconds, l: t.seconds, s: settings.showSeconds}
+                                                ].filter(u => u.s).map(u => html`
+                                                    <div key=${u.l} className="flex flex-col items-center bg-purple-600 rounded-3xl p-4 min-w-[80px] shadow-lg border border-purple-400">
+                                                        <span className="text-3xl md:text-5xl font-black text-white tabular-nums">${String(u.v).padStart(2, '0')}</span>
+                                                        <span className="text-[10px] text-purple-200 font-black uppercase mt-1 tracking-widest">${u.l}</span>
+                                                    </div>
+                                                `)}
+                                            </div>
+                                            <div className="pt-2">
+                                                <p className="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide opacity-90">${t.returningAt} ${settings.breakReturnTime}</p>
+                                                ${settings.breakText && html`<p className="text-lg font-bold text-purple-700 leading-tight whitespace-pre-wrap mt-2">${settings.breakText}</p>`}
+                                            </div>
+                                        </div>
+                                    ` : html`
                                         <div className="flex gap-4">
                                             ${[
                                                 {v: timeLeft.days, l: t.days, s: timeLeft.days > 0},
@@ -512,8 +712,8 @@
                             <p className="text-slate-500 text-[11px] font-medium italic">${t.footerBottom}</p>
                         </div>
                         <div className="absolute right-12 flex gap-4">
-                            <button onClick=${() => setIsMuted(!isMuted)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform focus:outline-none">
-                                ${isMuted ? '🔇' : (settings.musicType !== 'NONE' ? html`
+                            <button onClick=${() => setIsMuted(!isMuted)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform focus:outline-none" title="Mute/Unmute">
+                                ${isMuted ? '🔇' : (settings.musicType === MusicType.CUSTOM && settings.customMusicUrl ? html`
                                     <div className="music-playing-bars text-blue-600">
                                         <div className="music-bar"></div>
                                         <div className="music-bar" style=${{animationDelay: '0.2s'}}></div>
@@ -521,7 +721,7 @@
                                     </div>
                                 ` : '🔊')}
                             </button>
-                            <button onClick=${() => setIsSettingsOpen(true)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform focus:outline-none">
+                            <button onClick=${() => setIsSettingsOpen(true)} className="w-12 h-12 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-slate-100 hover:scale-110 transition-transform focus:outline-none" title="Settings">
                                 ⚙️
                             </button>
                         </div>
